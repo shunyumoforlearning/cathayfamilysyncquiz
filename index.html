@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Cathay Family Sync — The Ultimate Travel Match</title>
+  
+  <!-- Typography: Playfair Display (Editorial) & DM Sans (Modern UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Cathay Brand & Vibe Palette */
+      --cx-jade: #006a5b;
+      --cx-teal: #00857a;
+      --cx-slate: #2d3b3b;
+      --bg-cream: #fdfcf8;
+      --soft-mint: #eef7f6;
+      --warm-sand: #f4f1ea;
+      --accent-coral: #ff8f70;
+      
+      /* Typography */
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      
+      /* Animation */
+      --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0; padding: 0;
+      font-family: var(--font-body);
+      color: var(--cx-slate);
+      background-color: var(--bg-cream);
+      height: 100vh;
+      overflow: hidden; /* Main scroll is handled inside panes */
+      display: flex;
+    }
+
+    /* --- BACKGROUND ANIMATION --- */
+    .blob-canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1; pointer-events: none; opacity: 0.5;
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); animation: float 25s infinite ease-in-out;
+    }
+    .b1 { width: 60vh; height: 60vh; background: #d0f0eb; top: -20%; left: -10%; }
+    .b2 { width: 50vh; height: 50vh; background: #ffeadd; bottom: -10%; right: -10%; animation-delay: -5s; }
+    .b3 { width: 30vh; height: 30vh; background: #e0f2f1; top: 40%; left: 40%; animation-delay: -10s; }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* --- LAYOUT STRUCTURE --- */
+    .split-layout { display: flex; width: 100%; height: 100%; transition: transform 0.6s var(--ease-out); }
+    
+    /* Left Pane: Narrative & Context */
+    .pane-left {
+      flex: 0 0 40%;
+      padding: 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      background: rgba(253, 252, 248, 0.8);
+      z-index: 2;
+    }
+
+    /* Right Pane: Interactive Area */
+    .pane-right {
+      flex: 1;
+      position: relative;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      padding: 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid rgba(0,0,0,0.04);
+    }
+
+    /* --- TYPOGRAPHY --- */
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1; margin: 0 0 1.5rem;
+      color: var(--cx-jade);
+    }
+    h2 { font-family: var(--font-head); font-size: 2.2rem; margin: 0 0 1rem; color: var(--cx-slate); }
+    h3 { font-family: var(--font-head); font-size: 1.5rem; margin: 0 0 0.5rem; }
+    p { font-size: 1.1rem; line-height: 1.6; color: #555; max-width: 500px; margin-bottom: 2rem; }
+    
+    .overline {
+      text-transform: uppercase; letter-spacing: 2px;
+      font-size: 0.75rem; font-weight: 700; color: var(--cx-teal);
+      margin-bottom: 1rem; display: block;
+    }
+
+    /* --- UI COMPONENTS --- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 16px 36px; background: var(--cx-slate); color: #fff;
+      border: none; border-radius: 50px; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all 0.2s ease; text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); background: var(--cx-jade); }
+    .btn-outline { background: transparent; border: 2px solid var(--cx-slate); color: var(--cx-slate); box-shadow:none; }
+    .btn-outline:hover { background: var(--cx-slate); color: #fff; }
+
+    /* Destination Cards */
+    .grid-dest { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; width: 100%; max-width: 800px; }
+    .card-dest {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid transparent; text-align: left;
+    }
+    .card-dest:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .card-dest.selected { border-color: var(--cx-jade); background: var(--soft-mint); }
+    .dest-img-box { height: 140px; width: 100%; background: #eee; position: relative; }
+    /* CSS Gradients for Destination Placeholders */
+    .bg-tokyo { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .bg-london { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+    .bg-paris { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+    .bg-bangkok { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+    .dest-info { padding: 1.2rem; }
+
+    /* Role Cards */
+    .grid-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; max-width: 500px; }
+    .card-role {
+      background: #fff; padding: 2rem; border-radius: 16px; text-align: center; cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease;
+    }
+    .card-role:hover { border-color: var(--cx-jade); transform: translateY(-4px); box-shadow: 0 12px 25px rgba(0,106,91,0.1); }
+
+    /* Quiz Question */
+    .quiz-container { width: 100%; max-width: 650px; }
+    .quiz-opt {
+      background: #fff; padding: 1.5rem; margin-bottom: 1rem; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; gap: 1rem;
+      transition: all 0.2s ease;
+    }
+    .quiz-opt:hover { border-color: var(--cx-jade); background: var(--soft-mint); transform: translateX(5px); }
+    .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0; }
+    .quiz-opt:hover .dot { border-color: var(--cx-jade); background: var(--cx-jade); }
+
+    /* Results */
+    .result-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; margin: 2rem 0; }
+    .res-card { background: rgba(255,255,255,0.7); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
+    .res-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--cx-jade); padding: 4px 10px; border-radius: 20px; margin-bottom: 0.5rem; }
+    
+    .timeline { position: relative; margin-top: 2rem; padding-left: 1.5rem; border-left: 2px solid #ddd; }
+    .t-item { position: relative; margin-bottom: 2rem; }
+    .t-dot { position: absolute; left: -1.95rem; top: 0.2rem; width: 12px; height: 12px; background: var(--cx-jade); border-radius: 50%; border: 4px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .t-time { font-size: 0.85rem; font-weight: 700; color: #999; text-transform: uppercase; }
+    .t-title { font-size: 1.1rem; font-weight: 700; margin: 0.3rem 0; }
+
+    /* UTILS */
+    .hidden { display: none !important; }
+    .fade-in { animation: fadeIn 0.6s ease forwards; opacity: 0; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      body { display: block; overflow: auto; height: auto; }
+      .split-layout { flex-direction: column; }
+      .pane-left { min-height: 40vh; padding: 3rem 1.5rem; text-align: center; align-items: center; }
+      .pane-right { padding: 2rem 1.5rem; min-height: 60vh; }
+      h1 { font-size: 2.8rem; }
+      .result-split { grid-template-columns: 1fr; }
+      .grid-roles { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob-canvas">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <div class="split-layout">
+    
+    <!-- LEFT PANE: NARRATIVE -->
+    <div class="pane-left" id="leftPane">
+      <div class="fade-in">
+        <span class="overline">Cathay Family Sync</span>
+        <h1 id="mainTitle">Sync your styles,<br>design the day.</h1>
+        <p id="mainDesc">
+          A travel experience builder for two. Pick a destination, discover your unique travel personas, and get a tailored itinerary that keeps everyone happy.
+        </p>
+        <div id="visualPlaceholder" style="width: 100%; height: 250px; background: radial-gradient(circle at 30% 30%, #e0f2f1, transparent 60%); border-radius: 50%; margin-top: 1rem; opacity: 0.8;"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANE: INTERACTIVE STEPS -->
+    <div class="pane-right" id="rightPane">
+
+      <!-- STEP 0: INTRO BUTTON -->
+      <div id="stepIntro" class="fade-in" style="text-align: center;">
+        <button class="btn" onclick="goToDestinations()">Start the Experience</button>
+      </div>
+
+      <!-- STEP 1: DESTINATION -->
+      <div id="stepDest" class="hidden" style="width: 100%; max-width: 800px;">
+        <div style="text-align:center; margin-bottom: 2rem;">
+          <span class="overline">Step 1 of 4</span>
+          <h2>Where are we going?</h2>
+        </div>
+        <div class="grid-dest">
+          <!-- Tokyo -->
+          <div class="card-dest" onclick="selectDest('tokyo')">
+            <div class="dest-img-box bg-tokyo"></div>
+            <div class="dest-info">
+              <h3>Tokyo</h3>
+              <p style="margin:0; font-size:0.9rem;">Neon lights meet ancient shrines.</p>
+            </div>
+          </div>
+          <!-- London -->
+          <div class="card-dest" onclick="selectDest('london')">
+            <div class="dest-img-box bg-london"></div>
+            <div class="dest-info">
+              <h3>London</h3>
+              <p style="margin:0; font-size:0.9rem;">Historic charm & cozy corners.</p>
+            </div>
+          </div>
+          <!-- Paris -->
+          <div class="card-dest" onclick="selectDest('paris')">
+            <div class="dest-img-box bg-paris"></div>
+            <div class="dest-info">
+              <h3>Paris</h3>
+              <p style="margin:0; font-size:0.9rem;">Art, fashion, and café culture.</p>
+            </div>
+          </div>
+          <!-- Bangkok -->
+          <div class="card-dest" onclick="selectDest('bangkok')">
+            <div class="dest-img-box bg-bangkok"></div>
+            <div class="dest-info">
+              <h3>Bangkok</h3>
+              <p style="margin:0; font-size:0.9rem;">Vibrant street life & flavors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: ROLE SELECTION (Generic for both users) -->
+      <div id="stepRole" class="hidden" style="text-align:center;">
+        <span class="overline" id="roleStepLabel">Step 2: Traveller 1</span>
+        <h2 id="roleTitle">Who is taking the quiz?</h2>
+        <div class="grid-roles" style="margin: 0 auto;">
+          <div class="card-role" onclick="confirmRole('Dad')"><h3>Dad</h3></div>
+          <div class="card-role" onclick="confirmRole('Mom')"><h3>Mom</h3></div>
+          <div class="card-role" onclick="confirmRole('Daughter')"><h3>Daughter</h3></div>
+          <div class="card-role" onclick="confirmRole('Son')"><h3>Son</h3></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: QUIZ -->
+      <div id="stepQuiz" class="hidden quiz-container">
+        <span class="overline" id="quizProgress">Question 1 / 8</span>
+        <h2 id="quizQuestion" style="font-size: 1.8rem; margin-bottom: 2rem;">...</h2>
+        <div id="quizOptions"></div>
+      </div>
+
+      <!-- INTERMISSION -->
+      <div id="stepIntermission" class="hidden" style="text-align: center;">
+        <div style="width: 80px; height: 80px; background: var(--cx-jade); border-radius: 50%; margin: 0 auto 1.5rem; display:grid; place-items:center; color:white; font-size: 2rem;">✓</div>
+        <h2>Traveller 1 Complete!</h2>
+        <p>Please pass the device to Traveller 2.</p>
+        <button class="btn" onclick="startSecondUser()">Continue</button>
+      </div>
+
+      <!-- FINAL RESULT -->
+      <div id="stepResult" class="hidden" style="width: 100%; max-width: 900px;">
+        <div style="text-align:center;">
+          <span class="overline">The Conclusion</span>
+          <h1 style="margin-bottom: 0.5rem;" id="resMainTitle">The Sync</h1>
+          <p id="resMainDesc">Your combined travel style.</p>
+        </div>
+
+        <div class="result-split">
+          <!-- Person 1 -->
+          <div class="res-card">
+            <span class="res-tag" id="p1Tag">Dad</span>
+            <h3 id="p1Type">...</h3>
+            <p style="font-size: 0.9rem; margin:0;" id="p1Desc">...</p>
+          </div>
+          <!-- Person 2 -->
+          <div class="res-card">
+            <span class="res-tag" id="p2Tag">Daughter</span>
+            <h3 id="p2Type">...</h3>
+            <p style="font-size: 0.9rem; margin:0;" id="p2Desc">...</p>
+          </div>
+        </div>
+
+        <div style="background: #fff; padding: 2rem; border-radius: 16px; border: 1px solid #eee;">
+          <h2 style="text-align:center;">Your <span id="planCityName">Tokyo</span> Day Plan</h2>
+          <p style="text-align:center; font-size:0.9rem; margin-top:-10px;">Curated for your specific personas.</p>
+          
+          <div class="timeline" id="planTimeline">
+            <!-- Items injected by JS -->
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top: 2rem; display: flex; gap: 10px; justify-content: center;">
+          <button class="btn" onclick="location.reload()">Start Over</button>
+          <button class="btn btn-outline" onclick="alert('Itinerary copied!')">Share Itinerary</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  /* --- EXTENSIVE DATA SET (8 Questions per Role + Destinations) --- */
+  const DESTINATIONS = {
+    tokyo: { name: "Tokyo", morning: ["Asakusa & Senso-ji", "Tsukiji Outer Market"], afternoon: ["Harajuku & Omotesando", "TeamLab Planets"], evening: ["Shinjuku Golden Gai", "Shibuya Sky View"] },
+    london: { name: "London", morning: ["British Museum", "Borough Market"], afternoon: ["Covent Garden", "Tate Modern"], evening: ["Soho Jazz Club", "Thames Dinner Cruise"] },
+    paris: { name: "Paris", morning: ["Louvre Express", "Montmartre Stroll"], afternoon: ["Le Marais Shopping", "Seine River Walk"], evening: ["Eiffel Tower Picnic", "Latin Quarter Dinner"] },
+    bangkok: { name: "Bangkok", morning: ["Grand Palace", "Floating Market"], afternoon: ["Siam Paragon Mall", "Massage at Wat Pho"], evening: ["Chinatown Street Food", "Rooftop Bar"] }
+  };
+
+  const ROLES = {
+    Dad: {
+      types: {
+        "Photo-Op": { 
+            title: "The Photo-Op Dad", 
+            desc: "Insists on getting the perfect family photo at every landmark.", 
+            planAction: "We'll pause here for 20 mins to ensure the lighting is perfect for the group shot."
+        },
+        "History Hero": { 
+            title: "The History Hero Dad", 
+            desc: "Loves historical sites and shares trivia at every stop.", 
+            planAction: "Dad takes the lead here to explain the fascinating backstory of this location."
+        },
+        "Scenic Shortcut": { 
+            title: "The Scenic Shortcut Dad", 
+            desc: "Wants great views without long walks.", 
+            planAction: "We've booked a route that minimizes walking but maximizes the panoramic views."
+        },
+        "Budget Boss": { 
+            title: "The Budget Boss Dad", 
+            desc: "Tracks every expense and finds the best deals.", 
+            planAction: "We found a combo ticket here that saves 20% on entry fees."
+        }
+      },
+      questions: [
+        { q: "We just landed. Priority #1?", opts: [{t:"Selfie at the airport sign.",p:"Photo-Op"}, {t:"Read the architecture history.",p:"History Hero"}, {t:"Find a taxi, no walking.",p:"Scenic Shortcut"}, {t:"Check exchange rates.",p:"Budget Boss"}] },
+        { q: "Lunch vibe?", opts: [{t:"Somewhere with good lighting.",p:"Photo-Op"}, {t:"Historic tavern.",p:"History Hero"}, {t:"Closest place with chairs.",p:"Scenic Shortcut"}, {t:"Cheap eats / Special offer.",p:"Budget Boss"}] },
+        { q: "Kids are tired. You say...", opts: [{t:"Just one more smile!",p:"Photo-Op"}, {t:"This is historic ground!",p:"History Hero"}, {t:"Let's sit on that bench.",p:"Scenic Shortcut"}, {t:"We paid for the full day!",p:"Budget Boss"}] },
+        { q: "Souvenir choice?", opts: [{t:"Framed family photo.",p:"Photo-Op"}, {t:"Replica artifact.",p:"History Hero"}, {t:"Comfy travel pillow.",p:"Scenic Shortcut"}, {t:"Discounted magnet.",p:"Budget Boss"}] },
+        { q: "Packing strategy?", opts: [{t:"Camera gear first.",p:"Photo-Op"}, {t:"Guidebooks & Maps.",p:"History Hero"}, {t:"Comfortable shoes only.",p:"Scenic Shortcut"}, {t:"Carry-on only (save fees).",p:"Budget Boss"}] },
+        { q: "You lost the map.", opts: [{t:"Take photos of landmarks to find way.",p:"Photo-Op"}, {t:"Ask a local about history.",p:"History Hero"}, {t:"Hail a cab immediately.",p:"Scenic Shortcut"}, {t:"Use free wifi to find route.",p:"Budget Boss"}] },
+        { q: "Ideal evening?", opts: [{t:"Sunset photography spot.",p:"Photo-Op"}, {t:"Documentary in hotel.",p:"History Hero"}, {t:"Lounge with a view.",p:"Scenic Shortcut"}, {t:"Happy hour deals.",p:"Budget Boss"}] },
+        { q: "Travel pet peeve?", opts: [{t:"Cloudy weather (bad light).",p:"Photo-Op"}, {t:"Fake tourist traps.",p:"History Hero"}, {t:"Uphill walking.",p:"Scenic Shortcut"}, {t:"Overpriced water.",p:"Budget Boss"}] }
+      ]
+    },
+    Mom: {
+      types: {
+        "One-Stop Lounger": { 
+            title: "The One-Stop Lounger Mom", 
+            desc: "Always needs a long break at a café after every stop.", 
+            planAction: "Scheduled a 45-minute coffee break here to recharge and people-watch."
+        },
+        "Shopping Strategist": { 
+            title: "The Shopping Strategist Mom", 
+            desc: "Prioritising shopping experiences.", 
+            planAction: "This district was chosen specifically for its unique boutiques and sales."
+        },
+        "Memory Maker": { 
+            title: "The Memory Maker Mom", 
+            desc: "Snaps photos and curates family albums.", 
+            planAction: "A dedicated stop to organize photos and buy postcards for the album."
+        },
+        "Foodie Finder": { 
+            title: "The Foodie Finder Mom", 
+            desc: "Plans trips around authentic local cuisine.", 
+            planAction: "Skip the tourist cafes; we have a reservation at a hidden local gem."
+        }
+      },
+      questions: [
+        { q: "Hotel check-in. First look?", opts: [{t:"The spa menu.",p:"One-Stop Lounger"}, {t:"Proximity to shops.",p:"Shopping Strategist"}, {t:"The view (for vibes).",p:"Memory Maker"}, {t:"Breakfast buffet hours.",p:"Foodie Finder"}] },
+        { q: "Free afternoon.", opts: [{t:"Nap or read.",p:"One-Stop Lounger"}, {t:"Hit the department store.",p:"Shopping Strategist"}, {t:"Scrapbook tickets.",p:"Memory Maker"}, {t:"Find famous pastry.",p:"Foodie Finder"}] },
+        { q: "Packing priority?", opts: [{t:"Loungewear.",p:"One-Stop Lounger"}, {t:"Empty suitcase space.",p:"Shopping Strategist"}, {t:"Matching outfits.",p:"Memory Maker"}, {t:"Stretchy pants.",p:"Foodie Finder"}] },
+        { q: "Best moment?", opts: [{t:"Silence & Coffee.",p:"One-Stop Lounger"}, {t:"Sale rack find.",p:"Shopping Strategist"}, {t:"Everyone laughing.",p:"Memory Maker"}, {t:"First bite of local dish.",p:"Foodie Finder"}] },
+        { q: "Airport routine?", opts: [{t:"Lounge access immediately.",p:"One-Stop Lounger"}, {t:"Duty-free browsing.",p:"Shopping Strategist"}, {t:"Group photo at gate.",p:"Memory Maker"}, {t:"Pre-flight snack hunt.",p:"Foodie Finder"}] },
+        { q: "It starts raining.", opts: [{t:"Back to hotel bed.",p:"One-Stop Lounger"}, {t:"Go inside a mall.",p:"Shopping Strategist"}, {t:"Buy matching umbrellas.",p:"Memory Maker"}, {t:"Find a cozy bistro.",p:"Foodie Finder"}] },
+        { q: "Dealing with crowds?", opts: [{t:"Avoid. Stay in room.",p:"One-Stop Lounger"}, {t:"Push through to the shop.",p:"Shopping Strategist"}, {t:"Hold hands tightly.",p:"Memory Maker"}, {t:"Ask them where the line goes (food?).",p:"Foodie Finder"}] },
+        { q: "Splurge item?", opts: [{t:"Massage.",p:"One-Stop Lounger"}, {t:"Designer bag.",p:"Shopping Strategist"}, {t:"Professional photoshoot.",p:"Memory Maker"}, {t:"Tasting menu.",p:"Foodie Finder"}] }
+      ]
+    },
+    Daughter: {
+      types: {
+        "Hidden Gem Hunter": { 
+            title: "The Hidden Gem Hunter Daughter", 
+            desc: "Loves discovering authentic local spots and unique experiences.", 
+            planAction: "We're skipping the main gate to enter through a lesser-known side street."
+        },
+        "Insta Explorer": { 
+            title: "The Insta Explorer Daughter", 
+            desc: "Hunts for Instagram-worthy spots and aesthetic cafés.", 
+            planAction: "Allocated extra time here because the lighting and aesthetics are viral-worthy."
+        },
+        "Style Seeker": { 
+            title: "The Style Seeker Daughter", 
+            desc: "Shops for trendy clothes and accessories.", 
+            planAction: "This neighborhood is famous for emerging designers and street fashion."
+        },
+        "Zen Enthusiast": { 
+            title: "The Zen Enthusiast Daughter", 
+            desc: "Prefers wellness activities like spas and yoga.", 
+            planAction: "A moment of mindfulness in the city gardens before we continue."
+        }
+      },
+      questions: [
+        { q: "Research method?", opts: [{t:"Reddit deep dive.",p:"Hidden Gem Hunter"}, {t:"Instagram/TikTok.",p:"Insta Explorer"}, {t:"Vogue/Fashion blogs.",p:"Style Seeker"}, {t:"Wellness reviews.",p:"Zen Enthusiast"}] },
+        { q: "Refuse to go if...", opts: [{t:"It's a tourist trap.",p:"Hidden Gem Hunter"}, {t:"Lighting is ugly.",p:"Insta Explorer"}, {t:"People dress bad there.",p:"Style Seeker"}, {t:"It's too loud.",p:"Zen Enthusiast"}] },
+        { q: "Outfit?", opts: [{t:"Thrifted/Practical.",p:"Hidden Gem Hunter"}, {t:"Matches the location.",p:"Insta Explorer"}, {t:"High fashion.",p:"Style Seeker"}, {t:"Athleisure.",p:"Zen Enthusiast"}] },
+        { q: "Activity?", opts: [{t:"Basement art show.",p:"Hidden Gem Hunter"}, {t:"Picnic with props.",p:"Insta Explorer"}, {t:"Boutique hopping.",p:"Style Seeker"}, {t:"Meditation.",p:"Zen Enthusiast"}] },
+        { q: "Snack break?", opts: [{t:"Hole-in-wall place.",p:"Hidden Gem Hunter"}, {t:"Cute bubble tea.",p:"Insta Explorer"}, {t:"Diet coke & salad.",p:"Style Seeker"}, {t:"Green juice.",p:"Zen Enthusiast"}] },
+        { q: "Souvenir?", opts: [{t:"Vinyl record.",p:"Hidden Gem Hunter"}, {t:"Postcards for wall.",p:"Insta Explorer"}, {t:"Jewelry.",p:"Style Seeker"}, {t:"Incense/Oils.",p:"Zen Enthusiast"}] },
+        { q: "Transport?", opts: [{t:"Local bus.",p:"Hidden Gem Hunter"}, {t:"Uber (don't ruin hair).",p:"Insta Explorer"}, {t:"Walk (be seen).",p:"Style Seeker"}, {t:"Bike rental.",p:"Zen Enthusiast"}] },
+        { q: "Hotel need?", opts: [{t:"Cool neighborhood.",p:"Hidden Gem Hunter"}, {t:"Full length mirror.",p:"Insta Explorer"}, {t:"Closet space.",p:"Style Seeker"}, {t:"Bathtub.",p:"Zen Enthusiast"}] }
+      ]
+    },
+    Son: {
+      types: {
+        "Foodie Finder": { 
+            title: "The Foodie Finder Son", 
+            desc: "Plans trips around must-try local dishes and street food.", 
+            planAction: "We are detouring slightly to hit a legendary noodle stall nearby."
+        },
+        "Adventure Ace": { 
+            title: "The Adventure Ace Son", 
+            desc: "Thrives on outdoor activities and adrenaline experiences.", 
+            planAction: "We added a physical activity component here to burn off some energy."
+        },
+        "Tech Tracker": { 
+            title: "The Tech Tracker Son", 
+            desc: "Uses apps to find hidden gems and navigate easily.", 
+            planAction: "Son takes the lead on navigation here using a new AR map app."
+        },
+        "Gamer-on-the-Go": { 
+            title: "The Gamer-on-the-Go Son", 
+            desc: "Finds gaming cafés or portable entertainment during downtime.", 
+            planAction: "A planned downtime block to recharge devices (and play a quick level)."
+        }
+      },
+      questions: [
+        { q: "Backpack contents?", opts: [{t:"Snacks.",p:"Foodie Finder"}, {t:"GoPro.",p:"Adventure Ace"}, {t:"Power bank.",p:"Tech Tracker"}, {t:"Switch/Steam Deck.",p:"Gamer-on-the-Go"}] },
+        { q: "Waiting too long...", opts: [{t:"Find vending machine.",p:"Foodie Finder"}, {t:"Climb something.",p:"Adventure Ace"}, {t:"Check transit app.",p:"Tech Tracker"}, {t:"Play mobile game.",p:"Gamer-on-the-Go"}] },
+        { q: "Best city?", opts: [{t:"Great street food.",p:"Foodie Finder"}, {t:"Near mountains.",p:"Adventure Ace"}, {t:"High-tech hub.",p:"Tech Tracker"}, {t:"Fast Wi-Fi.",p:"Gamer-on-the-Go"}] },
+        { q: "Satisfaction is...", opts: [{t:"Full stomach.",p:"Foodie Finder"}, {t:"Adrenaline rush.",p:"Adventure Ace"}, {t:"Efficiency.",p:"Tech Tracker"}, {t:"Leveling up.",p:"Gamer-on-the-Go"}] },
+        { q: "Morning energy?", opts: [{t:"Hungry.",p:"Foodie Finder"}, {t:"Hyper.",p:"Adventure Ace"}, {t:"Checking news/weather.",p:"Tech Tracker"}, {t:"Groggy (up late gaming).",p:"Gamer-on-the-Go"}] },
+        { q: "Museum visit?", opts: [{t:"Is there a cafe?",p:"Foodie Finder"}, {t:"Can I touch things?",p:"Adventure Ace"}, {t:"Audio guide app.",p:"Tech Tracker"}, {t:"Is there a VR exhibit?",p:"Gamer-on-the-Go"}] },
+        { q: "Battery dies?", opts: [{t:"Eat while waiting.",p:"Foodie Finder"}, {t:"Good, explore real world.",p:"Adventure Ace"}, {t:"Panic.",p:"Tech Tracker"}, {t:"Panic.",p:"Gamer-on-the-Go"}] },
+        { q: "Weather check?", opts: [{t:"Picnic weather?",p:"Foodie Finder"}, {t:"Storms? Awesome.",p:"Adventure Ace"}, {t:"Precipitation %.",p:"Tech Tracker"}, {t:"Glare on screen?",p:"Gamer-on-the-Go"}] }
+      ]
+    }
+  };
+
+  /* --- STATE MANAGEMENT --- */
+  let state = {
+    destination: null,
+    user1: { role: null, answers: [] },
+    user2: { role: null, answers: [] },
+    currentUser: 1, // 1 or 2
+    currentQ: 0
+  };
+
+  /* --- DOM HELPERS --- */
+  const el = id => document.getElementById(id);
+  const show = id => el(id).classList.remove('hidden');
+  const hide = id => el(id).classList.add('hidden');
+  const fade = id => el(id).classList.add('fade-in');
+
+  /* --- FLOW LOGIC --- */
+  
+  function goToDestinations() {
+    hide('stepIntro');
+    show('stepDest');
+    fade('stepDest');
+    el('mainTitle').innerHTML = "First, pick<br>your backdrop.";
+    el('mainDesc').innerHTML = "Every city has a different rhythm. Choose where you are headed (or dreaming of) to ground your itinerary.";
+  }
+
+  function selectDest(cityKey) {
+    state.destination = cityKey;
+    // Highlight UI
+    document.querySelectorAll('.card-dest').forEach(c => c.classList.remove('selected'));
+    // In a real app we'd highlight clicked, but here we move on
+    setTimeout(() => {
+      hide('stepDest');
+      show('stepRole');
+      fade('stepRole');
+      el('mainTitle').innerHTML = "Traveller 1,<br>Identify yourself.";
+      el('mainDesc').innerHTML = "Are you the parent leading the charge, or the one following along? Let's figure out your style.";
+    }, 400);
+  }
+
+  function confirmRole(role) {
+    if (state.currentUser === 1) state.user1.role = role;
+    else state.user2.role = role;
+    
+    startQuiz(role);
+  }
+
+  function startQuiz(role) {
+    hide('stepRole');
+    show('stepQuiz');
+    state.currentQ = 0;
+    renderQuestion();
+    
+    el('mainTitle').innerHTML = "The<br>Discovery.";
+    el('mainDesc').innerHTML = `Digging into the travel psyche of the ${role}. No wrong answers here.`;
+  }
+
+  function renderQuestion() {
+    const role = state.currentUser === 1 ? state.user1.role : state.user2.role;
+    const qData = ROLES[role].questions[state.currentQ];
+    
+    el('quizProgress').textContent = `Traveller ${state.currentUser} • Question ${state.currentQ + 1} / 8`;
+    el('quizQuestion').textContent = qData.q;
+    
+    const box = el('quizOptions');
+    box.innerHTML = '';
+    
+    qData.opts.forEach((o, i) => {
+      const d = document.createElement('div');
+      d.className = 'quiz-opt fade-in';
+      d.style.animationDelay = (i * 0.05) + 's';
+      d.onclick = () => handleAnswer(o.p);
+      d.innerHTML = `<div class="dot"></div><div>${o.t}</div>`;
+      box.appendChild(d);
+    });
+  }
+
+  function handleAnswer(type) {
+    if (state.currentUser === 1) state.user1.answers.push(type);
+    else state.user2.answers.push(type);
+
+    if (state.currentQ < 7) {
+      state.currentQ++;
+      renderQuestion();
+    } else {
+      finishUser();
+    }
+  }
+
+  function finishUser() {
+    hide('stepQuiz');
+    if (state.currentUser === 1) {
+      state.currentUser = 2;
+      show('stepIntermission');
+      fade('stepIntermission');
+      el('mainTitle').innerHTML = "Halfway<br>There.";
+      el('mainDesc').innerHTML = "One down, one to go. Hand the device over to the second traveller.";
+    } else {
+      calculateAndShowResult();
+    }
+  }
+
+  function startSecondUser() {
+    hide('stepIntermission');
+    show('stepRole');
+    fade('stepRole');
+    el('roleStepLabel').textContent = "Step 3: Traveller 2";
+    el('mainTitle').innerHTML = "Traveller 2,<br>Your turn.";
+    el('mainDesc').innerHTML = "Let's see how your style compares. Opposites attract, or birds of a feather?";
+  }
+
+  /* --- RESULT LOGIC --- */
+
+  function getWinner(answers) {
+    const tally = {};
+    answers.forEach(a => tally[a] = (tally[a] || 0) + 1);
+    return Object.keys(tally).reduce((a, b) => tally[a] > tally[b] ? a : b);
+  }
+
+  function calculateAndShowResult() {
+    const type1 = getWinner(state.user1.answers);
+    const type2 = getWinner(state.user2.answers);
+    const role1 = state.user1.role;
+    const role2 = state.user2.role;
+    const destKey = state.destination;
+
+    const data1 = ROLES[role1].types[type1];
+    const data2 = ROLES[role2].types[type2];
+
+    // Populate Results
+    show('stepResult');
+    fade('stepResult');
+    el('mainTitle').innerHTML = "Your<br>Travel Sync.";
+    el('mainDesc').classList.add('hidden'); // Hide default left pane desc
+
+    el('resMainTitle').textContent = `The ${destKey.charAt(0).toUpperCase() + destKey.slice(1)} Sync`;
+    el('resMainDesc').textContent = `Juxtaposing ${data1.title} with ${data2.title}.`;
+
+    // Cards
+    el('p1Tag').textContent = role1;
+    el('p1Type').textContent = data1.title;
+    el('p1Desc').textContent = data1.desc;
+    
+    el('p2Tag').textContent = role2;
+    el('p2Type').textContent = data2.title;
+    el('p2Desc').textContent = data2.desc;
+
+    // Timeline Generation
+    generateTimeline(destKey, data1, data2);
+  }
+
+  function generateTimeline(cityKey, d1, d2) {
+    const city = DESTINATIONS[cityKey];
+    el('planCityName').textContent = city.name;
+    const tl = el('planTimeline');
+    tl.innerHTML = '';
+
+    const events = [
+      { time: "09:00 AM", title: "Morning Start", desc: city.morning[0] + ". " + (d1.desc.includes("Sleep") ? "A slow start." : "Kicking off the day.") },
+      { time: "11:30 AM", title: d1.title + "'s Choice", desc: `<b>Why:</b> ${d1.planAction}` },
+      { time: "01:00 PM", title: "Lunch Break", desc: "Refueling with local flavors at " + city.morning[1] + "." },
+      { time: "03:00 PM", title: d2.title + "'s Choice", desc: `<b>Why:</b> ${d2.planAction}` },
+      { time: "05:00 PM", title: "Shared Afternoon", desc: city.afternoon[0] + ". A balanced spot for both styles." },
+      { time: "07:30 PM", title: "Dinner & Evening", desc: city.evening[0] + ". Winding down the day." }
+    ];
+
+    events.forEach(e => {
+      const div = document.createElement('div');
+      div.className = "t-item";
+      div.innerHTML = `
+        <div class="t-dot"></div>
+        <div class="t-time">${e.time}</div>
+        <div class="t-title">${e.title}</div>
+        <div style="font-size:0.95rem; color:#666;">${e.desc}</div>
+      `;
+      tl.appendChild(div);
+    });
+  }
+
+</script>
+</body>
+</html>
