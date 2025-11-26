@@ -162,8 +162,16 @@
 
     /* Results */
     .result-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; margin: 2rem 0; }
-    .res-card { background: #fff; padding: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-    .res-img { height: 200px; width: 100%; background: #eee; object-fit: cover; }
+    .res-card { 
+      background: #fff; padding: 0; border-radius: 16px; overflow: hidden; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; 
+    }
+    .res-img { 
+      height: 300px; /* Increased height for better visibility */
+      width: 100%; 
+      background: #e0f2f1; /* Soft teal bg to match assets */
+      object-fit: contain; /* Show the whole image without cropping */
+    }
     .res-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .res-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--cx-jade); padding: 4px 10px; border-radius: 20px; margin-bottom: 0.5rem; }
     
@@ -277,8 +285,7 @@
         <div class="result-split">
           <!-- Person 1 -->
           <div class="res-card">
-            <!-- PLACEHOLDER IMAGE: Users upload assets/dad-photo.png etc to their repo -->
-            <img id="p1Img" class="res-img" src="" alt="Persona Image" onerror="this.style.backgroundColor='#ccc'; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2QxZDVkYiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc3NyI+SW1hZ2UgTWlzc2luZzwvdGV4dD48L3N2Zz4='"/>
+            <img id="p1Img" class="res-img" src="" alt="Persona Image" />
             <div class="res-content">
               <span class="overline" id="p1Tag">Dad</span>
               <h3 id="p1Type" style="color:var(--cx-jade)">...</h3>
@@ -287,7 +294,7 @@
           </div>
           <!-- Person 2 -->
           <div class="res-card">
-            <img id="p2Img" class="res-img" src="" alt="Persona Image" onerror="this.style.backgroundColor='#ccc'; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2QxZDVkYiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc3NyI+SW1hZ2UgTWlzc2luZzwvdGV4dD48L3N2Zz4='"/>
+            <img id="p2Img" class="res-img" src="" alt="Persona Image" />
             <div class="res-content">
               <span class="overline" id="p2Tag">Daughter</span>
               <h3 id="p2Type" style="color:var(--cx-jade)">...</h3>
@@ -360,14 +367,14 @@
       }
     },
     questions: [
-        { q: "You arrive at a landmark. First instinct?", opts: [{t:"Scout angles for the group photo.",p:"Photo-Op"}, {t:"Say hello to the local guide.",p:"Friendly Fellow"}, {t:"Find a bench with a view.",p:"Scenic Shortcut"}, {t:"Check if entry is free.",p:"Budget Boss"}] },
-        { q: "The restaurant menu is expensive. You...", opts: [{t:"Order the most photogenic dish.",p:"Photo-Op"}, {t:"Ask the waiter for their personal favorite.",p:"Friendly Fellow"}, {t:"Just order a drink and enjoy the seat.",p:"Scenic Shortcut"}, {t:"Find the 'Lunch Special' section.",p:"Budget Boss"}] },
-        { q: "Family is lagging behind. You say:", opts: [{t:"The light is fading, hurry!",p:"Photo-Op"}, {t:"I just met a guy who knows a shortcut!",p:"Friendly Fellow"}, {t:"Let's just take a taxi.",p:"Scenic Shortcut"}, {t:"We paid for a full day pass, let's go!",p:"Budget Boss"}] },
-        { q: "You lost the map. Strategy?", opts: [{t:"Take photos of landmarks to backtrack.",p:"Photo-Op"}, {t:"Ask a local for directions immediately.",p:"Friendly Fellow"}, {t:"Sit down and wait for a bus.",p:"Scenic Shortcut"}, {t:"Use free hotel Wi-Fi to screenshot maps.",p:"Budget Boss"}] },
-        { q: "Ideal souvenir?", opts: [{t:"Framed print of us.",p:"Photo-Op"}, {t:"A gift recommended by a local.",p:"Friendly Fellow"}, {t:"Comfy neck pillow.",p:"Scenic Shortcut"}, {t:"Duty-free deal.",p:"Budget Boss"}] },
-        { q: "Morning routine on trip?", opts: [{t:"Clean lens, check batteries.",p:"Photo-Op"}, {t:"Chat with hotel staff over coffee.",p:"Friendly Fellow"}, {t:"Sleep in, late breakfast.",p:"Scenic Shortcut"}, {t:"Pack snacks from grocery store.",p:"Budget Boss"}] },
-        { q: "Worst travel nightmare?", opts: [{t:"Cloudy gray skies.",p:"Photo-Op"}, {t:"A place with no people.",p:"Friendly Fellow"}, {t:"'Scenic' hike (uphill).",p:"Scenic Shortcut"}, {t:"Tourist trap pricing.",p:"Budget Boss"}] },
-        { q: "Your travel superpower?", opts: [{t:"Capturing memories forever.",p:"Photo-Op"}, {t:"Making friends anywhere.",p:"Friendly Fellow"}, {t:"Finding the easiest route.",p:"Scenic Shortcut"}, {t:"Coming in under budget.",p:"Budget Boss"}] }
+        { q: "We need a place for dinner. You choose...", opts: [{t:"A rooftop bar with a skyline view.",p:"Photo-Op"}, {t:"A communal table at a lively beer hall.",p:"Friendly Fellow"}, {t:"The hotel restaurant (zero walking).",p:"Scenic Shortcut"}, {t:"The place with the 'Kids Eat Free' sign.",p:"Budget Boss"}] },
+        { q: "You have 2 free hours in the city. You go to...", opts: [{t:"The highest observation deck available.",p:"Photo-Op"}, {t:"The town square to people watch.",p:"Friendly Fellow"}, {t:"A river cruise (sitting down).",p:"Scenic Shortcut"}, {t:"The public market for cheap snacks.",p:"Budget Boss"}] },
+        { q: "The family is complaining about walking. You say:", opts: [{t:"Just one more block for the perfect light!",p:"Photo-Op"}, {t:"I'll ask this nice local for a shortcut!",p:"Friendly Fellow"}, {t:"Agreed. Let's hail a cab right now.",p:"Scenic Shortcut"}, {t:"Walking is free! We save $20!",p:"Budget Boss"}] },
+        { q: "Which phrase do you use most on a trip?", opts: [{t:"'Everyone squeeze in together!'",p:"Photo-Op"}, {t:"'Where are you folks visiting from?'",p:"Friendly Fellow"}, {t:"'Is there an elevator?'",p:"Scenic Shortcut"}, {t:"'Is service charge included?'",p:"Budget Boss"}] },
+        { q: "Your ideal souvenir is...", opts: [{t:"A framed professional family portrait.",p:"Photo-Op"}, {t:"A gift a local recommended to you.",p:"Friendly Fellow"}, {t:"A high-quality travel pillow.",p:"Scenic Shortcut"}, {t:"Something from the clearance bin.",p:"Budget Boss"}] },
+        { q: "We are lost. You...", opts: [{t:"Take photos of landmarks to retrace steps.",p:"Photo-Op"}, {t:"Immediately ask a stranger for help.",p:"Friendly Fellow"}, {t:"Sit on a bench until we figure it out.",p:"Scenic Shortcut"}, {t:"Refuse to turn on data roaming to check maps.",p:"Budget Boss"}] },
+        { q: "The ultimate travel nightmare is...", opts: [{t:"Rainy, gray, flat lighting.",p:"Photo-Op"}, {t:"A city with no friendly locals.",p:"Friendly Fellow"}, {t:"A 'scenic' hike that is all uphill.",p:"Scenic Shortcut"}, {t:"Paying full price for water.",p:"Budget Boss"}] },
+        { q: "You feel most successful when...", opts: [{t:"You capture the shot of the trip.",p:"Photo-Op"}, {t:"You make a new friend.",p:"Friendly Fellow"}, {t:"You didn't break a sweat all day.",p:"Scenic Shortcut"}, {t:"You came in under budget.",p:"Budget Boss"}] }
     ]
   },
   Mom: {
@@ -402,14 +409,14 @@
       }
     },
     questions: [
-        { q: "We check into the hotel. You check...", opts: [{t:"The thread count & spa menu.",p:"One-Stop Lounger"}, {t:"Closet space for new buys.",p:"Shopping Strategist"}, {t:"The view for a family pic.",p:"Memory Maker"}, {t:"The fire escape route.",p:"Safety-First"}] },
-        { q: "It's raining. Plan B?", opts: [{t:"Stay in bed.",p:"One-Stop Lounger"}, {t:"Department store browsing.",p:"Shopping Strategist"}, {t:"Organize yesterday's photos.",p:"Memory Maker"}, {t:"Check weather alerts.",p:"Safety-First"}] },
-        { q: "Free afternoon. We go...", opts: [{t:"To a quiet garden with seats.",p:"One-Stop Lounger"}, {t:"To the outlet mall.",p:"Shopping Strategist"}, {t:"To a scrapbook supply shop.",p:"Memory Maker"}, {t:"Rest and repack the bag.",p:"Safety-First"}] },
-        { q: "Packing essential?", opts: [{t:"Walking shoes? No, slippers.",p:"One-Stop Lounger"}, {t:"Empty suitcase.",p:"Shopping Strategist"}, {t:"Matching family outfits.",p:"Memory Maker"}, {t:"Full First-Aid Kit.",p:"Safety-First"}] },
-        { q: "Best travel feeling?", opts: [{t:"Doing absolutely nothing.",p:"One-Stop Lounger"}, {t:"Finding 50% off.",p:"Shopping Strategist"}, {t:"Everyone smiling at once.",p:"Memory Maker"}, {t:"Everyone safe and sound.",p:"Safety-First"}] },
-        { q: "Airport ritual?", opts: [{t:"Lounge access immediately.",p:"One-Stop Lounger"}, {t:"Duty-free perfume aisle.",p:"Shopping Strategist"}, {t:"Group selfie at gate.",p:"Memory Maker"}, {t:"Double checking passports.",p:"Safety-First"}] },
-        { q: "Crowd strategy?", opts: [{t:"Avoid. Find a cafe.",p:"One-Stop Lounger"}, {t:"Push through to the sale.",p:"Shopping Strategist"}, {t:"Hold hands tightly.",p:"Memory Maker"}, {t:"Keep bags in front, stay alert.",p:"Safety-First"}] },
-        { q: "Splurge item?", opts: [{t:"90-minute massage.",p:"One-Stop Lounger"}, {t:"Designer bag.",p:"Shopping Strategist"}, {t:"Professional photoshoot.",p:"Memory Maker"}, {t:"Premium Travel Insurance.",p:"Safety-First"}] }
+        { q: "Lunch time. Your priority is...", opts: [{t:"Comfortable seating and AC.",p:"One-Stop Lounger"}, {t:"Near the main shopping street.",p:"Shopping Strategist"}, {t:"A place with a cute aesthetic.",p:"Memory Maker"}, {t:"Hygiene rating and food safety.",p:"Safety-First"}] },
+        { q: "We arrive at the hotel. You first check...", opts: [{t:"The spa menu and pool hours.",p:"One-Stop Lounger"}, {t:"The closet space for new purchases.",p:"Shopping Strategist"}, {t:"The view for a family selfie.",p:"Memory Maker"}, {t:" The fire escape map and door locks.",p:"Safety-First"}] },
+        { q: "It starts raining. You suggest...", opts: [{t:"Nap time at the hotel.",p:"One-Stop Lounger"}, {t:"Department store browsing.",p:"Shopping Strategist"}, {t:"Scrapbooking our tickets in a cafe.",p:"Memory Maker"}, {t:"Returning to hotel (slippery streets!).",p:"Safety-First"}] },
+        { q: "Your suitcase is mostly full of...", opts: [{t:"Loungewear and slippers.",p:"One-Stop Lounger"}, {t:"Empty space for what I'll buy.",p:"Shopping Strategist"}, {t:"Matching outfits for the kids.",p:"Memory Maker"}, {t:"First-aid, sanitizers, and medicines.",p:"Safety-First"}] },
+        { q: "A perfect morning looks like...", opts: [{t:"Room service and silence.",p:"One-Stop Lounger"}, {t:"Being first in line at the outlet.",p:"Shopping Strategist"}, {t:"Golden hour family walk.",p:"Memory Maker"}, {t:"Applying sunscreen and checking route safety.",p:"Safety-First"}] },
+        { q: "You are most stressed when...", opts: [{t:"The schedule is too packed.",p:"One-Stop Lounger"}, {t:"The shops close early.",p:"Shopping Strategist"}, {t:"The kids won't smile for the photo.",p:"Memory Maker"}, {t:"We are in a crowded, chaotic place.",p:"Safety-First"}] },
+        { q: "Your treat for yourself is...", opts: [{t:"A 90-minute massage.",p:"One-Stop Lounger"}, {t:"A designer handbag.",p:"Shopping Strategist"}, {t:"A professional family photoshoot.",p:"Memory Maker"}, {t:"Premium travel insurance.",p:"Safety-First"}] },
+        { q: "At the airport, you are...", opts: [{t:"Asleep in the lounge.",p:"One-Stop Lounger"}, {t:"In the Duty-Free perfume aisle.",p:"Shopping Strategist"}, {t:"Taking photos of the plane.",p:"Memory Maker"}, {t:"Double-checking passports every 5 mins.",p:"Safety-First"}] }
     ]
   },
   Daughter: {
@@ -444,14 +451,14 @@
       }
     },
     questions: [
-        { q: "Planning research source?", opts: [{t:"Reddit & local forums.",p:"Hidden Gem Hunter"}, {t:"TikTok & Reels.",p:"Insta Explorer"}, {t:"Vogue & Fashion blogs.",p:"Style Seeker"}, {t:"Wellness retreat reviews.",p:"Zen Enthusiast"}] },
-        { q: "Refuse to go if...", opts: [{t:"It's a tourist trap.",p:"Hidden Gem Hunter"}, {t:"The lighting is ugly.",p:"Insta Explorer"}, {t:"People dress poorly there.",p:"Style Seeker"}, {t:"It's too loud/chaotic.",p:"Zen Enthusiast"}] },
-        { q: "OOTD (Outfit)?", opts: [{t:"Thrifted & Practical.",p:"Hidden Gem Hunter"}, {t:"Matches the background.",p:"Insta Explorer"}, {t:"Runway ready.",p:"Style Seeker"}, {t:"Lululemon/Athleisure.",p:"Zen Enthusiast"}] },
-        { q: "Activity pick?", opts: [{t:"Underground art show.",p:"Hidden Gem Hunter"}, {t:"Picnic with props.",p:"Insta Explorer"}, {t:"Vintage boutique.",p:"Style Seeker"}, {t:"Sunrise yoga.",p:"Zen Enthusiast"}] },
-        { q: "Snack break?", opts: [{t:"Hole-in-wall dumpling.",p:"Hidden Gem Hunter"}, {t:"Aesthetic bubble tea.",p:"Insta Explorer"}, {t:"Iced coffee & salad.",p:"Style Seeker"}, {t:"Acai bowl.",p:"Zen Enthusiast"}] },
-        { q: "Transport choice?", opts: [{t:"Local bus.",p:"Hidden Gem Hunter"}, {t:"Uber (don't ruin hair).",p:"Insta Explorer"}, {t:"Walk (be seen).",p:"Style Seeker"}, {t:"Bike rental.",p:"Zen Enthusiast"}] },
-        { q: "Souvenir?", opts: [{t:"Vinyl record.",p:"Hidden Gem Hunter"}, {t:"Postcards for my wall.",p:"Insta Explorer"}, {t:"Local jewelry.",p:"Style Seeker"}, {t:"Essential oils.",p:"Zen Enthusiast"}] },
-        { q: "Hotel requirement?", opts: [{t:"Cool neighborhood.",p:"Hidden Gem Hunter"}, {t:"Full length mirror.",p:"Insta Explorer"}, {t:"Closet space.",p:"Style Seeker"}, {t:"Deep bathtub.",p:"Zen Enthusiast"}] }
+        { q: "We need a snack. You pick...", opts: [{t:"A hole-in-the-wall dumpling shop.",p:"Hidden Gem Hunter"}, {t:"The pink café with the flower wall.",p:"Insta Explorer"}, {t:"A trendy juice bar.",p:"Style Seeker"}, {t:"An organic acai bowl place.",p:"Zen Enthusiast"}] },
+        { q: "You refuse to go to a place if...", opts: [{t:"It's a total tourist trap.",p:"Hidden Gem Hunter"}, {t:"The lighting is unflattering.",p:"Insta Explorer"}, {t:"People there dress poorly.",p:"Style Seeker"}, {t:"It's too loud and chaotic.",p:"Zen Enthusiast"}] },
+        { q: "How do you choose where to go?", opts: [{t:"Reddit threads and local forums.",p:"Hidden Gem Hunter"}, {t:"TikTok and Instagram Reels.",p:"Insta Explorer"}, {t:"Vogue and fashion blogs.",p:"Style Seeker"}, {t:"Wellness retreat reviews.",p:"Zen Enthusiast"}] },
+        { q: "Your outfit for the day is...", opts: [{t:"Thrifted, vintage, practical.",p:"Hidden Gem Hunter"}, {t:"Color-coordinated with the location.",p:"Insta Explorer"}, {t:"Latest season, runway ready.",p:"Style Seeker"}, {t:"Premium athleisure / Lululemon.",p:"Zen Enthusiast"}] },
+        { q: "Ideal afternoon activity?", opts: [{t:"Exploring a basement art gallery.",p:"Hidden Gem Hunter"}, {t:"Picnic with aesthetic props.",p:"Insta Explorer"}, {t:"Hunting for vintage jewelry.",p:"Style Seeker"}, {t:"Sunrise yoga by the river.",p:"Zen Enthusiast"}] },
+        { q: "Transportation preference?", opts: [{t:"Local bus to see the real city.",p:"Hidden Gem Hunter"}, {t:"Uber (wind ruins hair).",p:"Insta Explorer"}, {t:"Walking (to be seen).",p:"Style Seeker"}, {t:"Bike rental or walking.",p:"Zen Enthusiast"}] },
+        { q: "Souvenir of choice?", opts: [{t:"Vinyl record or local zine.",p:"Hidden Gem Hunter"}, {t:"Postcards for my bedroom wall.",p:"Insta Explorer"}, {t:"A unique accessory.",p:"Style Seeker"}, {t:"Essential oils or incense.",p:"Zen Enthusiast"}] },
+        { q: "Hotel requirement?", opts: [{t:"Cool, gritty neighborhood.",p:"Hidden Gem Hunter"}, {t:"Full-length selfie mirror.",p:"Insta Explorer"}, {t:"Good closet space.",p:"Style Seeker"}, {t:"Deep soaking bathtub.",p:"Zen Enthusiast"}] }
     ]
   },
   Son: {
@@ -486,14 +493,14 @@
       }
     },
     questions: [
-        { q: "Backpack essential?", opts: [{t:"Snacks.",p:"Foodie Finder"}, {t:"GoPro.",p:"Adventure Ace"}, {t:"Power bank.",p:"Tech Tracker"}, {t:"Steam Deck/Switch.",p:"Gamer-on-the-Go"}] },
-        { q: "Bored waiting. You...", opts: [{t:"Find a vending machine.",p:"Foodie Finder"}, {t:"Climb a statue.",p:"Adventure Ace"}, {t:"Optimize our route on maps.",p:"Tech Tracker"}, {t:"Play a quick level.",p:"Gamer-on-the-Go"}] },
-        { q: "Ideal city has...", opts: [{t:"Night markets.",p:"Foodie Finder"}, {t:"Mountains nearby.",p:"Adventure Ace"}, {t:"Super fast 5G.",p:"Tech Tracker"}, {t:"Gaming cafes.",p:"Gamer-on-the-Go"}] },
-        { q: "Morning mood?", opts: [{t:"Starving.",p:"Foodie Finder"}, {t:"Hyperactive.",p:"Adventure Ace"}, {t:"Checking news feeds.",p:"Tech Tracker"}, {t:"Groggy (up late gaming).",p:"Gamer-on-the-Go"}] },
-        { q: "Museum visit. You ask:", opts: [{t:"Is there a cafe?",p:"Foodie Finder"}, {t:"Can I touch things?",p:"Adventure Ace"}, {t:"Is there an audio app?",p:"Tech Tracker"}, {t:"Is there VR?",p:"Gamer-on-the-Go"}] },
-        { q: "Phone battery dies.", opts: [{t:"Eat while waiting.",p:"Foodie Finder"}, {t:"Good. Real world time.",p:"Adventure Ace"}, {t:"Panic.",p:"Tech Tracker"}, {t:"Panic.",p:"Gamer-on-the-Go"}] },
-        { q: "Weather check?", opts: [{t:"Picnic weather?",p:"Foodie Finder"}, {t:"Storms? Awesome.",p:"Adventure Ace"}, {t:"Precipitation %.",p:"Tech Tracker"}, {t:"Glare on screen?",p:"Gamer-on-the-Go"}] },
-        { q: "Satisfaction is...", opts: [{t:"Full stomach.",p:"Foodie Finder"}, {t:"Heart pumping.",p:"Adventure Ace"}, {t:"Maximum efficiency.",p:"Tech Tracker"}, {t:"Beating high score.",p:"Gamer-on-the-Go"}] }
+        { q: "It's lunch time. You demand...", opts: [{t:"The local specialty, no matter the queue.",p:"Foodie Finder"}, {t:"Anything, as long as we can eat outside/moving.",p:"Adventure Ace"}, {t:"A place I found with 4.9 stars on maps.",p:"Tech Tracker"}, {t:"A place with free fast Wi-Fi.",p:"Gamer-on-the-Go"}] },
+        { q: "You have free time. You want to...", opts: [{t:"Hunt down a viral street snack.",p:"Foodie Finder"}, {t:"Find a cliff or tower to climb.",p:"Adventure Ace"}, {t:"Test my new drone/camera gear.",p:"Tech Tracker"}, {t:"Finally beat this difficult boss level.",p:"Gamer-on-the-Go"}] },
+        { q: "The perfect city has...", opts: [{t:"Night markets open until 3am.",p:"Foodie Finder"}, {t:"Zip-lining and rafting nearby.",p:"Adventure Ace"}, {t:"Fully automated transport systems.",p:"Tech Tracker"}, {t:"A massive e-sports arena.",p:"Gamer-on-the-Go"}] },
+        { q: "You are most annoyed when...", opts: [{t:"The food is bland or inauthentic.",p:"Foodie Finder"}, {t:"We have to sit still for hours.",p:"Adventure Ace"}, {t:"The GPS signal is weak.",p:"Tech Tracker"}, {t:"My battery dies mid-game.",p:"Gamer-on-the-Go"}] },
+        { q: "Choosing a hotel. You look for...", opts: [{t:"Proximity to the best ramen.",p:"Foodie Finder"}, {t:"A gym or climbing wall.",p:"Adventure Ace"}, {t:"Smart home features.",p:"Tech Tracker"}, {t:"Low latency internet connection.",p:"Gamer-on-the-Go"}] },
+        { q: "Your dream souvenir is...", opts: [{t:"A vacuum-sealed local delicacy.",p:"Foodie Finder"}, {t:"A GoPro video of my jump.",p:"Adventure Ace"}, {t:"The latest gadget cheaper than home.",p:"Tech Tracker"}, {t:"A limited edition game console.",p:"Gamer-on-the-Go"}] },
+        { q: "We are lost. You...", opts: [{t:"Follow the smell of cooking.",p:"Foodie Finder"}, {t:"Climb a high point to scout.",p:"Adventure Ace"}, {t:"Pull up the offline satellite map.",p:"Tech Tracker"}, {t:"Wait while playing until parents fix it.",p:"Gamer-on-the-Go"}] },
+        { q: "A successful trip means...", opts: [{t:"I ate everything on my list.",p:"Foodie Finder"}, {t:"I did something dangerous.",p:"Adventure Ace"}, {t:"We never got lost once.",p:"Tech Tracker"}, {t:"I leveled up my character.",p:"Gamer-on-the-Go"}] }
     ]
   }
 };
