@@ -166,12 +166,15 @@
       background: #fff; padding: 0; border-radius: 16px; overflow: hidden; 
       box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; 
     }
+    
+    /* UPDATED IMAGE CSS FOR BETTER FIT */
     .res-img { 
-      height: 500px; /* Increased height to fit full poster image */
       width: 100%; 
-      background: #fff; 
-      object-fit: contain; /* Ensures the whole image is seen */
+      height: auto; /* Natural height */
+      background: #fff; /* Background to match card */
+      display: block;
     }
+    
     .res-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .res-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--cx-jade); padding: 4px 10px; border-radius: 20px; margin-bottom: 0.5rem; }
     
@@ -285,7 +288,6 @@
         <div class="result-split">
           <!-- Person 1 -->
           <div class="res-card">
-            <!-- Uses object-fit: contain with height 500px to ensure full image visibility -->
             <img id="p1Img" class="res-img" src="" alt="Persona Image" />
             <div class="res-content">
               <span class="overline" id="p1Tag">Dad</span>
@@ -315,7 +317,7 @@
 
         <div style="text-align:center; margin-top: 2rem; display: flex; gap: 10px; justify-content: center;">
           <button class="btn" onclick="location.reload()">Start Over</button>
-          <button class="btn btn-outline" onclick="alert('Itinerary copied!')">Share Itinerary</button>
+          <button class="btn btn-outline" onclick="copyShare()">Share Itinerary</button>
         </div>
       </div>
 
@@ -494,14 +496,14 @@
       }
     },
     questions: [
-        { q: "It's your choice for dinner. You steer the family towards...", opts: [{t:"A hidden alleyway noodle shop with a 4.8 rating.",p:"Foodie Finder"}, {t:"A place near the park so we can run around after.",p:"Adventure Ace"}, {t:"A fully automated sushi belt place.",p:"Tech Tracker"}, {t:"A themed cafe with VR experiences.",p:"Gamer-on-the-Go"}] },
-        { q: "We are navigating a complex subway system. You...", opts: [{t:"Look for the station snacks while parents figure it out.",p:"Foodie Finder"}, {t:"Suggest we walk or bike instead.",p:"Adventure Ace"}, {t:"Use an AR navigation app to lead the way.",p:"Tech Tracker"}, {t:"Play a game until we arrive at the stop.",p:"Gamer-on-the-Go"}] },
-        { q: "We have an hour before the flight. You...", opts: [{t:"Find the last great meal at the terminal.",p:"Foodie Finder"}, {t:"Explore every terminal wing on foot.",p:"Adventure Ace"}, {t:"Organize your digital photo library/footage.",p:"Tech Tracker"}, {t:"Challenge dad to a mobile game match.",p:"Gamer-on-the-Go"}] },
-        { q: "The hotel is cool because...", opts: [{t:"It's right above a famous night market.",p:"Foodie Finder"}, {t:"It has a climbing wall in the lobby.",p:"Adventure Ace"}, {t:"It has smart home voice controls.",p:"Tech Tracker"}, {t:"It has ultra-fast gigabit Wi-Fi.",p:"Gamer-on-the-Go"}] },
-        { q: "Pick a morning activity.", opts: [{t:"Street food breakfast tour.",p:"Foodie Finder"}, {t:"Urban kayaking or hiking.",p:"Adventure Ace"}, {t:"Visiting a flagship electronics store.",p:"Tech Tracker"}, {t:"Visiting a famous arcade or comic shop.",p:"Gamer-on-the-Go"}] },
-        { q: "You get annoyed when...", opts: [{t:"The food is overpriced and inauthentic.",p:"Foodie Finder"}, {t:"We spend too much time sitting on a bus.",p:"Adventure Ace"}, {t:"Google Maps isn't loading accurately.",p:"Tech Tracker"}, {t:"My console runs out of battery.",p:"Gamer-on-the-Go"}] },
-        { q: "You're buying something to take home.", opts: [{t:"Local spices or snacks.",p:"Foodie Finder"}, {t:"Action cam footage of my trip.",p:"Adventure Ace"}, {t:"The latest gadget not available at home.",p:"Tech Tracker"}, {t:"A rare game or collectible figure.",p:"Gamer-on-the-Go"}] },
-        { q: "You found a cool spot. It is...", opts: [{t:"A legendary food stall.",p:"Foodie Finder"}, {t:"A rooftop with a crazy view (climbed stairs).",p:"Adventure Ace"}, {t:"A fully automated convenience store.",p:"Tech Tracker"}, {t:"A cafe with retro consoles.",p:"Gamer-on-the-Go"}] }
+        { q: "It's lunch time. You demand...", opts: [{t:"The local specialty, no matter the queue.",p:"Foodie Finder"}, {t:"Anything, as long as we can eat outside/moving.",p:"Adventure Ace"}, {t:"A place I found with 4.9 stars on maps.",p:"Tech Tracker"}, {t:"A place with free fast Wi-Fi.",p:"Gamer-on-the-Go"}] },
+        { q: "You have free time. You want to...", opts: [{t:"Hunt down a viral street snack.",p:"Foodie Finder"}, {t:"Find a cliff or tower to climb.",p:"Adventure Ace"}, {t:"Test my new drone/camera gear.",p:"Tech Tracker"}, {t:"Finally beat this difficult boss level.",p:"Gamer-on-the-Go"}] },
+        { q: "The perfect city has...", opts: [{t:"Night markets open until 3am.",p:"Foodie Finder"}, {t:"Zip-lining and rafting nearby.",p:"Adventure Ace"}, {t:"Fully automated transport systems.",p:"Tech Tracker"}, {t:"A massive e-sports arena.",p:"Gamer-on-the-Go"}] },
+        { q: "You are most annoyed when...", opts: [{t:"The food is bland or inauthentic.",p:"Foodie Finder"}, {t:"We have to sit still for hours.",p:"Adventure Ace"}, {t:"The GPS signal is weak.",p:"Tech Tracker"}, {t:"My battery dies mid-game.",p:"Gamer-on-the-Go"}] },
+        { q: "Choosing a hotel. You look for...", opts: [{t:"Proximity to the best ramen.",p:"Foodie Finder"}, {t:"A gym or climbing wall.",p:"Adventure Ace"}, {t:"Smart home features.",p:"Tech Tracker"}, {t:"Low latency internet connection.",p:"Gamer-on-the-Go"}] },
+        { q: "Your dream souvenir is...", opts: [{t:"A vacuum-sealed local delicacy.",p:"Foodie Finder"}, {t:"A GoPro video of my jump.",p:"Adventure Ace"}, {t:"The latest gadget not available at home.",p:"Tech Tracker"}, {t:"A limited edition game console.",p:"Gamer-on-the-Go"}] },
+        { q: "We are lost. You...", opts: [{t:"Follow the smell of cooking.",p:"Foodie Finder"}, {t:"Climb a high point to scout.",p:"Adventure Ace"}, {t:"Pull up the offline satellite map.",p:"Tech Tracker"}, {t:"Wait while playing until parents fix it.",p:"Gamer-on-the-Go"}] },
+        { q: "A successful trip means...", opts: [{t:"I ate everything on my list.",p:"Foodie Finder"}, {t:"I did something dangerous.",p:"Adventure Ace"}, {t:"We never got lost once.",p:"Tech Tracker"}, {t:"I leveled up my character.",p:"Gamer-on-the-Go"}] }
     ]
   }
 };
@@ -616,6 +618,21 @@
       const d = document.createElement('div'); d.className = 't-item';
       d.innerHTML = `<div class="t-dot"></div><div class="t-time">${e.t}</div><span class="t-badge">${e.badge}</span><div class="t-title">${e.title}</div><div class="t-desc">${e.desc}</div>`;
       tl.appendChild(d);
+    });
+  }
+
+  function copyShare() {
+    const t1 = state.user1.answers.length > 0 ? state.user1.role + " (" + el('p1Type').innerText + ")" : "Traveller 1";
+    const t2 = state.user2.answers.length > 0 ? state.user2.role + " (" + el('p2Type').innerText + ")" : "Traveller 2";
+    const dest = state.destination ? DESTINATIONS[state.destination].name : "our trip";
+    
+    const text = `Cathay Family Sync Result:\nDestination: ${dest}\n${t1}\n${t2}\n\nPlan your trip with Cathay Pacific.`;
+    
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Itinerary copied to clipboard!");
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+      alert("Failed to copy. Please take a screenshot instead.");
     });
   }
 </script>
