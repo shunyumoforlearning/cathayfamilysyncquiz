@@ -131,10 +131,14 @@
     .card-dest.selected { border-color: var(--cx-jade); background: var(--soft-mint); }
     .dest-img-box { height: 140px; width: 100%; background: #eee; position: relative; }
     /* CSS Gradients for Destination Placeholders */
-    .bg-tokyo { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
-    .bg-london { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-    .bg-paris { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
-    .bg-bangkok { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+    .g-tokyo { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .g-london { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+    .g-paris { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+    .g-bangkok { background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%); }
+    .g-nyc { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+    .g-rome { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .g-sydney { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .g-cape { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
     .dest-info { padding: 1.2rem; }
 
     /* Role Cards */
@@ -158,7 +162,9 @@
 
     /* Results */
     .result-split { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; margin: 2rem 0; }
-    .res-card { background: rgba(255,255,255,0.7); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
+    .res-card { background: #fff; padding: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+    .res-img { height: 200px; width: 100%; background: #eee; object-fit: cover; }
+    .res-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .res-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; color: #fff; background: var(--cx-jade); padding: 4px 10px; border-radius: 20px; margin-bottom: 0.5rem; }
     
     .timeline { position: relative; margin-top: 2rem; padding-left: 1.5rem; border-left: 2px solid #ddd; }
@@ -166,6 +172,7 @@
     .t-dot { position: absolute; left: -1.95rem; top: 0.2rem; width: 12px; height: 12px; background: var(--cx-jade); border-radius: 50%; border: 4px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     .t-time { font-size: 0.85rem; font-weight: 700; color: #999; text-transform: uppercase; }
     .t-title { font-size: 1.1rem; font-weight: 700; margin: 0.3rem 0; }
+    .t-badge { display: inline-block; font-size: 0.7rem; background: var(--soft-mint); color: var(--cx-jade); padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; font-weight: 600; }
 
     /* UTILS */
     .hidden { display: none !important; }
@@ -221,38 +228,14 @@
           <h2>Where are we going?</h2>
         </div>
         <div class="grid-dest">
-          <!-- Tokyo -->
-          <div class="card-dest" onclick="selectDest('tokyo')">
-            <div class="dest-img-box bg-tokyo"></div>
-            <div class="dest-info">
-              <h3>Tokyo</h3>
-              <p style="margin:0; font-size:0.9rem;">Neon lights meet ancient shrines.</p>
-            </div>
-          </div>
-          <!-- London -->
-          <div class="card-dest" onclick="selectDest('london')">
-            <div class="dest-img-box bg-london"></div>
-            <div class="dest-info">
-              <h3>London</h3>
-              <p style="margin:0; font-size:0.9rem;">Historic charm & cozy corners.</p>
-            </div>
-          </div>
-          <!-- Paris -->
-          <div class="card-dest" onclick="selectDest('paris')">
-            <div class="dest-img-box bg-paris"></div>
-            <div class="dest-info">
-              <h3>Paris</h3>
-              <p style="margin:0; font-size:0.9rem;">Art, fashion, and café culture.</p>
-            </div>
-          </div>
-          <!-- Bangkok -->
-          <div class="card-dest" onclick="selectDest('bangkok')">
-            <div class="dest-img-box bg-bangkok"></div>
-            <div class="dest-info">
-              <h3>Bangkok</h3>
-              <p style="margin:0; font-size:0.9rem;">Vibrant street life & flavors.</p>
-            </div>
-          </div>
+          <div class="card-dest" onclick="selectDest('tokyo')"><div class="dest-img-box g-tokyo"></div><div class="dest-info"><h3>Tokyo</h3><p style="margin:0;font-size:0.85rem">Neon & Tradition</p></div></div>
+          <div class="card-dest" onclick="selectDest('london')"><div class="dest-img-box g-london"></div><div class="dest-info"><h3>London</h3><p style="margin:0;font-size:0.85rem">History & Cozy</p></div></div>
+          <div class="card-dest" onclick="selectDest('paris')"><div class="dest-img-box g-paris"></div><div class="dest-info"><h3>Paris</h3><p style="margin:0;font-size:0.85rem">Art & Romance</p></div></div>
+          <div class="card-dest" onclick="selectDest('bangkok')"><div class="dest-img-box g-bangkok"></div><div class="dest-info"><h3>Bangkok</h3><p style="margin:0;font-size:0.85rem">Chaos & Flavor</p></div></div>
+          <div class="card-dest" onclick="selectDest('nyc')"><div class="dest-img-box g-nyc"></div><div class="dest-info"><h3>New York</h3><p style="margin:0;font-size:0.85rem">Energy & Icons</p></div></div>
+          <div class="card-dest" onclick="selectDest('rome')"><div class="dest-img-box g-rome"></div><div class="dest-info"><h3>Rome</h3><p style="margin:0;font-size:0.85rem">Ruins & Pasta</p></div></div>
+          <div class="card-dest" onclick="selectDest('sydney')"><div class="dest-img-box g-sydney"></div><div class="dest-info"><h3>Sydney</h3><p style="margin:0;font-size:0.85rem">Sun & Surf</p></div></div>
+          <div class="card-dest" onclick="selectDest('capetown')"><div class="dest-img-box g-cape"></div><div class="dest-info"><h3>Cape Town</h3><p style="margin:0;font-size:0.85rem">Vistas & Adventure</p></div></div>
         </div>
       </div>
 
@@ -294,15 +277,22 @@
         <div class="result-split">
           <!-- Person 1 -->
           <div class="res-card">
-            <span class="res-tag" id="p1Tag">Dad</span>
-            <h3 id="p1Type">...</h3>
-            <p style="font-size: 0.9rem; margin:0;" id="p1Desc">...</p>
+            <!-- PLACEHOLDER IMAGE: Users upload assets/dad-photo.png etc to their repo -->
+            <img id="p1Img" class="res-img" src="" alt="Persona Image" onerror="this.style.backgroundColor='#ccc'; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2QxZDVkYiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc3NyI+SW1hZ2UgTWlzc2luZzwvdGV4dD48L3N2Zz4='"/>
+            <div class="res-content">
+              <span class="overline" id="p1Tag">Dad</span>
+              <h3 id="p1Type" style="color:var(--cx-jade)">...</h3>
+              <p style="font-size: 0.9rem; margin:0; line-height:1.5;" id="p1Desc">...</p>
+            </div>
           </div>
           <!-- Person 2 -->
           <div class="res-card">
-            <span class="res-tag" id="p2Tag">Daughter</span>
-            <h3 id="p2Type">...</h3>
-            <p style="font-size: 0.9rem; margin:0;" id="p2Desc">...</p>
+            <img id="p2Img" class="res-img" src="" alt="Persona Image" onerror="this.style.backgroundColor='#ccc'; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2QxZDVkYiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc3NyI+SW1hZ2UgTWlzc2luZzwvdGV4dD48L3N2Zz4='"/>
+            <div class="res-content">
+              <span class="overline" id="p2Tag">Daughter</span>
+              <h3 id="p2Type" style="color:var(--cx-jade)">...</h3>
+              <p style="font-size: 0.9rem; margin:0; line-height:1.5;" id="p2Desc">...</p>
+            </div>
           </div>
         </div>
 
@@ -327,221 +317,232 @@
 <script>
   /* --- EXTENSIVE DATA SET (8 Questions per Role + Destinations) --- */
   const DESTINATIONS = {
-    tokyo: { name: "Tokyo", morning: ["Asakusa & Senso-ji", "Tsukiji Outer Market"], afternoon: ["Harajuku & Omotesando", "TeamLab Planets"], evening: ["Shinjuku Golden Gai", "Shibuya Sky View"] },
-    london: { name: "London", morning: ["British Museum", "Borough Market"], afternoon: ["Covent Garden", "Tate Modern"], evening: ["Soho Jazz Club", "Thames Dinner Cruise"] },
-    paris: { name: "Paris", morning: ["Louvre Express", "Montmartre Stroll"], afternoon: ["Le Marais Shopping", "Seine River Walk"], evening: ["Eiffel Tower Picnic", "Latin Quarter Dinner"] },
-    bangkok: { name: "Bangkok", morning: ["Grand Palace", "Floating Market"], afternoon: ["Siam Paragon Mall", "Massage at Wat Pho"], evening: ["Chinatown Street Food", "Rooftop Bar"] }
+    tokyo: { name: "Tokyo", spots: { history: "Senso-ji Temple & Asakusa", view: "Shibuya Sky Deck", shop: "Omotesando Hills", food: "Tsukiji Outer Market", wellness: "Meiji Jingu Forest", art: "TeamLab Planets", thrill: "Go-Karting in Akihabara" } },
+    london: { name: "London", spots: { history: "Tower of London", view: "The Shard", shop: "Liberty London", food: "Borough Market", wellness: "Hyde Park Serpentine", art: "Tate Modern", thrill: "Speedboat on Thames" } },
+    paris: { name: "Paris", spots: { history: "The Louvre", view: "Montparnasse Tower", shop: "Le Marais Boutiques", food: "Rue Cler Market", wellness: "Luxembourg Gardens", art: "Musée d'Orsay", thrill: "Catacombs Tour" } },
+    bangkok: { name: "Bangkok", spots: { history: "The Grand Palace", view: "Wat Arun at Sunset", shop: "IconSiam", food: "Chinatown Street Food", wellness: "Wat Pho Massage", art: "Jim Thompson House", thrill: "Tuk-Tuk Race" } },
+    nyc: { name: "New York", spots: { history: "Ellis Island", view: "Summit One Vanderbilt", shop: "SoHo Cast Iron District", food: "Chelsea Market", wellness: "Central Park Sheep Meadow", art: "MoMA", thrill: "Helicopter Tour" } },
+    rome: { name: "Rome", spots: { history: "The Colosseum", view: "Gianicolo Hill", shop: "Via del Corso", food: "Testaccio Market", wellness: "Villa Borghese", art: "Vatican Museums", thrill: "Vespa City Tour" } },
+    sydney: { name: "Sydney", spots: { history: "The Rocks Walking Tour", view: "Sydney Harbour Bridge", shop: "Queen Victoria Building", food: "Sydney Fish Market", wellness: "Bondi to Coogee Walk", art: "Opera House Tour", thrill: "Bridge Climb" } },
+    capetown: { name: "Cape Town", spots: { history: "Robben Island", view: "Table Mountain Cableway", shop: "V&A Waterfront", food: "The Old Biscuit Mill", wellness: "Kirstenbosch Gardens", art: "Zeitz MOCAA", thrill: "Paragliding Signal Hill" } }
   };
 
   const ROLES = {
-    Dad: {
-      types: {
-        "Photo-Op": { 
-            title: "The Photo-Op Dad", 
-            desc: "Insists on getting the perfect family photo at every landmark.", 
-            planAction: "We'll pause here for 20 mins to ensure the lighting is perfect for the group shot."
-        },
-        "History Hero": { 
-            title: "The History Hero Dad", 
-            desc: "Loves historical sites and shares trivia at every stop.", 
-            planAction: "Dad takes the lead here to explain the fascinating backstory of this location."
-        },
-        "Scenic Shortcut": { 
-            title: "The Scenic Shortcut Dad", 
-            desc: "Wants great views without long walks.", 
-            planAction: "We've booked a route that minimizes walking but maximizes the panoramic views."
-        },
-        "Budget Boss": { 
-            title: "The Budget Boss Dad", 
-            desc: "Tracks every expense and finds the best deals.", 
-            planAction: "We found a combo ticket here that saves 20% on entry fees."
-        }
+  Dad: {
+    types: {
+      "Photo-Op": { 
+        title: "The Photo-Op Dad", 
+        img: "assets/The Photo-Op Dad.png", 
+        desc: "Insists on getting the perfect family photo at every landmark.", 
+        tag: "view", 
+        planText: "Golden Hour Photography at [SPOT]" 
       },
-      questions: [
-        { q: "We just landed. Priority #1?", opts: [{t:"Selfie at the airport sign.",p:"Photo-Op"}, {t:"Read the architecture history.",p:"History Hero"}, {t:"Find a taxi, no walking.",p:"Scenic Shortcut"}, {t:"Check exchange rates.",p:"Budget Boss"}] },
-        { q: "Lunch vibe?", opts: [{t:"Somewhere with good lighting.",p:"Photo-Op"}, {t:"Historic tavern.",p:"History Hero"}, {t:"Closest place with chairs.",p:"Scenic Shortcut"}, {t:"Cheap eats / Special offer.",p:"Budget Boss"}] },
-        { q: "Kids are tired. You say...", opts: [{t:"Just one more smile!",p:"Photo-Op"}, {t:"This is historic ground!",p:"History Hero"}, {t:"Let's sit on that bench.",p:"Scenic Shortcut"}, {t:"We paid for the full day!",p:"Budget Boss"}] },
-        { q: "Souvenir choice?", opts: [{t:"Framed family photo.",p:"Photo-Op"}, {t:"Replica artifact.",p:"History Hero"}, {t:"Comfy travel pillow.",p:"Scenic Shortcut"}, {t:"Discounted magnet.",p:"Budget Boss"}] },
-        { q: "Packing strategy?", opts: [{t:"Camera gear first.",p:"Photo-Op"}, {t:"Guidebooks & Maps.",p:"History Hero"}, {t:"Comfortable shoes only.",p:"Scenic Shortcut"}, {t:"Carry-on only (save fees).",p:"Budget Boss"}] },
-        { q: "You lost the map.", opts: [{t:"Take photos of landmarks to find way.",p:"Photo-Op"}, {t:"Ask a local about history.",p:"History Hero"}, {t:"Hail a cab immediately.",p:"Scenic Shortcut"}, {t:"Use free wifi to find route.",p:"Budget Boss"}] },
-        { q: "Ideal evening?", opts: [{t:"Sunset photography spot.",p:"Photo-Op"}, {t:"Documentary in hotel.",p:"History Hero"}, {t:"Lounge with a view.",p:"Scenic Shortcut"}, {t:"Happy hour deals.",p:"Budget Boss"}] },
-        { q: "Travel pet peeve?", opts: [{t:"Cloudy weather (bad light).",p:"Photo-Op"}, {t:"Fake tourist traps.",p:"History Hero"}, {t:"Uphill walking.",p:"Scenic Shortcut"}, {t:"Overpriced water.",p:"Budget Boss"}] }
-      ]
+      "Friendly Fellow": { 
+        title: "The Friendly Fellow Dad", 
+        img: "assets/The Friendly Fellow Dad.png", 
+        desc: "Chats with strangers and makes friends with everyone he meets.", 
+        tag: "history", 
+        planText: "Social mixing & local chatting at [SPOT]" 
+      },
+      "Scenic Shortcut": { 
+        title: "The Scenic Shortcut Dad", 
+        img: "assets/The Scenic Shortcut Dad.png", 
+        desc: "Wants great views without long walks.", 
+        tag: "view", 
+        planText: "Relaxed Scenic View at [SPOT] (Access via Lift/Cab)" 
+      },
+      "Budget Boss": { 
+        title: "The Budget Boss Dad", 
+        img: "assets/The Budget Boss Dad.png", 
+        desc: "Tracks every expense and finds the best deals.", 
+        tag: "food", 
+        planText: "Value-for-Money Local Eats at [SPOT]" 
+      }
     },
-    Mom: {
-      types: {
-        "One-Stop Lounger": { 
-            title: "The One-Stop Lounger Mom", 
-            desc: "Always needs a long break at a café after every stop.", 
-            planAction: "Scheduled a 45-minute coffee break here to recharge and people-watch."
-        },
-        "Shopping Strategist": { 
-            title: "The Shopping Strategist Mom", 
-            desc: "Prioritising shopping experiences.", 
-            planAction: "This district was chosen specifically for its unique boutiques and sales."
-        },
-        "Memory Maker": { 
-            title: "The Memory Maker Mom", 
-            desc: "Snaps photos and curates family albums.", 
-            planAction: "A dedicated stop to organize photos and buy postcards for the album."
-        },
-        "Foodie Finder": { 
-            title: "The Foodie Finder Mom", 
-            desc: "Plans trips around authentic local cuisine.", 
-            planAction: "Skip the tourist cafes; we have a reservation at a hidden local gem."
-        }
+    questions: [
+        { q: "You arrive at a landmark. First instinct?", opts: [{t:"Scout angles for the group photo.",p:"Photo-Op"}, {t:"Say hello to the local guide.",p:"Friendly Fellow"}, {t:"Find a bench with a view.",p:"Scenic Shortcut"}, {t:"Check if entry is free.",p:"Budget Boss"}] },
+        { q: "The restaurant menu is expensive. You...", opts: [{t:"Order the most photogenic dish.",p:"Photo-Op"}, {t:"Ask the waiter for their personal favorite.",p:"Friendly Fellow"}, {t:"Just order a drink and enjoy the seat.",p:"Scenic Shortcut"}, {t:"Find the 'Lunch Special' section.",p:"Budget Boss"}] },
+        { q: "Family is lagging behind. You say:", opts: [{t:"The light is fading, hurry!",p:"Photo-Op"}, {t:"I just met a guy who knows a shortcut!",p:"Friendly Fellow"}, {t:"Let's just take a taxi.",p:"Scenic Shortcut"}, {t:"We paid for a full day pass, let's go!",p:"Budget Boss"}] },
+        { q: "You lost the map. Strategy?", opts: [{t:"Take photos of landmarks to backtrack.",p:"Photo-Op"}, {t:"Ask a local for directions immediately.",p:"Friendly Fellow"}, {t:"Sit down and wait for a bus.",p:"Scenic Shortcut"}, {t:"Use free hotel Wi-Fi to screenshot maps.",p:"Budget Boss"}] },
+        { q: "Ideal souvenir?", opts: [{t:"Framed print of us.",p:"Photo-Op"}, {t:"A gift recommended by a local.",p:"Friendly Fellow"}, {t:"Comfy neck pillow.",p:"Scenic Shortcut"}, {t:"Duty-free deal.",p:"Budget Boss"}] },
+        { q: "Morning routine on trip?", opts: [{t:"Clean lens, check batteries.",p:"Photo-Op"}, {t:"Chat with hotel staff over coffee.",p:"Friendly Fellow"}, {t:"Sleep in, late breakfast.",p:"Scenic Shortcut"}, {t:"Pack snacks from grocery store.",p:"Budget Boss"}] },
+        { q: "Worst travel nightmare?", opts: [{t:"Cloudy gray skies.",p:"Photo-Op"}, {t:"A place with no people.",p:"Friendly Fellow"}, {t:"'Scenic' hike (uphill).",p:"Scenic Shortcut"}, {t:"Tourist trap pricing.",p:"Budget Boss"}] },
+        { q: "Your travel superpower?", opts: [{t:"Capturing memories forever.",p:"Photo-Op"}, {t:"Making friends anywhere.",p:"Friendly Fellow"}, {t:"Finding the easiest route.",p:"Scenic Shortcut"}, {t:"Coming in under budget.",p:"Budget Boss"}] }
+    ]
+  },
+  Mom: {
+    types: {
+      "One-Stop Lounger": { 
+        title: "The One-Stop Lounger Mom", 
+        img: "assets/The One-Stop Lounger Mom.png", 
+        desc: "Always needs a long break at a café after every stop.", 
+        tag: "wellness", 
+        planText: "Extended Coffee & Chill Break at [SPOT]" 
       },
-      questions: [
-        { q: "Hotel check-in. First look?", opts: [{t:"The spa menu.",p:"One-Stop Lounger"}, {t:"Proximity to shops.",p:"Shopping Strategist"}, {t:"The view (for vibes).",p:"Memory Maker"}, {t:"Breakfast buffet hours.",p:"Foodie Finder"}] },
-        { q: "Free afternoon.", opts: [{t:"Nap or read.",p:"One-Stop Lounger"}, {t:"Hit the department store.",p:"Shopping Strategist"}, {t:"Scrapbook tickets.",p:"Memory Maker"}, {t:"Find famous pastry.",p:"Foodie Finder"}] },
-        { q: "Packing priority?", opts: [{t:"Loungewear.",p:"One-Stop Lounger"}, {t:"Empty suitcase space.",p:"Shopping Strategist"}, {t:"Matching outfits.",p:"Memory Maker"}, {t:"Stretchy pants.",p:"Foodie Finder"}] },
-        { q: "Best moment?", opts: [{t:"Silence & Coffee.",p:"One-Stop Lounger"}, {t:"Sale rack find.",p:"Shopping Strategist"}, {t:"Everyone laughing.",p:"Memory Maker"}, {t:"First bite of local dish.",p:"Foodie Finder"}] },
-        { q: "Airport routine?", opts: [{t:"Lounge access immediately.",p:"One-Stop Lounger"}, {t:"Duty-free browsing.",p:"Shopping Strategist"}, {t:"Group photo at gate.",p:"Memory Maker"}, {t:"Pre-flight snack hunt.",p:"Foodie Finder"}] },
-        { q: "It starts raining.", opts: [{t:"Back to hotel bed.",p:"One-Stop Lounger"}, {t:"Go inside a mall.",p:"Shopping Strategist"}, {t:"Buy matching umbrellas.",p:"Memory Maker"}, {t:"Find a cozy bistro.",p:"Foodie Finder"}] },
-        { q: "Dealing with crowds?", opts: [{t:"Avoid. Stay in room.",p:"One-Stop Lounger"}, {t:"Push through to the shop.",p:"Shopping Strategist"}, {t:"Hold hands tightly.",p:"Memory Maker"}, {t:"Ask them where the line goes (food?).",p:"Foodie Finder"}] },
-        { q: "Splurge item?", opts: [{t:"Massage.",p:"One-Stop Lounger"}, {t:"Designer bag.",p:"Shopping Strategist"}, {t:"Professional photoshoot.",p:"Memory Maker"}, {t:"Tasting menu.",p:"Foodie Finder"}] }
-      ]
+      "Shopping Strategist": { 
+        title: "The Shopping Strategist Mom", 
+        img: "assets/The Shopping Strategist Mom.png", 
+        desc: "Prioritising shopping experiences.", 
+        tag: "shop", 
+        planText: "Curated Boutique Sweep at [SPOT]" 
+      },
+      "Memory Maker": { 
+        title: "The Memory Maker Mom", 
+        img: "assets/The Memory Maker Mom.png", 
+        desc: "Snaps photos and curates family albums.", 
+        tag: "view", 
+        planText: "Nostalgic Photo Session at [SPOT]" 
+      },
+      "Safety-First": { 
+        title: "The Safety-First Mom", 
+        img: "assets/The Safety-First Mom.png", 
+        desc: "Always prepared with first-aid kits and checks safety at every stop.", 
+        tag: "wellness", 
+        planText: "Safe & Relaxed Exploration at [SPOT]" 
+      }
     },
-    Daughter: {
-      types: {
-        "Hidden Gem Hunter": { 
-            title: "The Hidden Gem Hunter Daughter", 
-            desc: "Loves discovering authentic local spots and unique experiences.", 
-            planAction: "We're skipping the main gate to enter through a lesser-known side street."
-        },
-        "Insta Explorer": { 
-            title: "The Insta Explorer Daughter", 
-            desc: "Hunts for Instagram-worthy spots and aesthetic cafés.", 
-            planAction: "Allocated extra time here because the lighting and aesthetics are viral-worthy."
-        },
-        "Style Seeker": { 
-            title: "The Style Seeker Daughter", 
-            desc: "Shops for trendy clothes and accessories.", 
-            planAction: "This neighborhood is famous for emerging designers and street fashion."
-        },
-        "Zen Enthusiast": { 
-            title: "The Zen Enthusiast Daughter", 
-            desc: "Prefers wellness activities like spas and yoga.", 
-            planAction: "A moment of mindfulness in the city gardens before we continue."
-        }
+    questions: [
+        { q: "We check into the hotel. You check...", opts: [{t:"The thread count & spa menu.",p:"One-Stop Lounger"}, {t:"Closet space for new buys.",p:"Shopping Strategist"}, {t:"The view for a family pic.",p:"Memory Maker"}, {t:"The fire escape route.",p:"Safety-First"}] },
+        { q: "It's raining. Plan B?", opts: [{t:"Stay in bed.",p:"One-Stop Lounger"}, {t:"Department store browsing.",p:"Shopping Strategist"}, {t:"Organize yesterday's photos.",p:"Memory Maker"}, {t:"Check weather alerts.",p:"Safety-First"}] },
+        { q: "Free afternoon. We go...", opts: [{t:"To a quiet garden with seats.",p:"One-Stop Lounger"}, {t:"To the outlet mall.",p:"Shopping Strategist"}, {t:"To a scrapbook supply shop.",p:"Memory Maker"}, {t:"Rest and repack the bag.",p:"Safety-First"}] },
+        { q: "Packing essential?", opts: [{t:"Walking shoes? No, slippers.",p:"One-Stop Lounger"}, {t:"Empty suitcase.",p:"Shopping Strategist"}, {t:"Matching family outfits.",p:"Memory Maker"}, {t:"Full First-Aid Kit.",p:"Safety-First"}] },
+        { q: "Best travel feeling?", opts: [{t:"Doing absolutely nothing.",p:"One-Stop Lounger"}, {t:"Finding 50% off.",p:"Shopping Strategist"}, {t:"Everyone smiling at once.",p:"Memory Maker"}, {t:"Everyone safe and sound.",p:"Safety-First"}] },
+        { q: "Airport ritual?", opts: [{t:"Lounge access immediately.",p:"One-Stop Lounger"}, {t:"Duty-free perfume aisle.",p:"Shopping Strategist"}, {t:"Group selfie at gate.",p:"Memory Maker"}, {t:"Double checking passports.",p:"Safety-First"}] },
+        { q: "Crowd strategy?", opts: [{t:"Avoid. Find a cafe.",p:"One-Stop Lounger"}, {t:"Push through to the sale.",p:"Shopping Strategist"}, {t:"Hold hands tightly.",p:"Memory Maker"}, {t:"Keep bags in front, stay alert.",p:"Safety-First"}] },
+        { q: "Splurge item?", opts: [{t:"90-minute massage.",p:"One-Stop Lounger"}, {t:"Designer bag.",p:"Shopping Strategist"}, {t:"Professional photoshoot.",p:"Memory Maker"}, {t:"Premium Travel Insurance.",p:"Safety-First"}] }
+    ]
+  },
+  Daughter: {
+    types: {
+      "Hidden Gem Hunter": { 
+        title: "The Hidden Gem Hunter Daughter", 
+        img: "assets/The Hidden Gem Hunter Daughter.png", 
+        desc: "Loves discovering authentic local spots and unique experiences.", 
+        tag: "art", 
+        planText: "Off-the-beaten-path discovery at [SPOT]" 
       },
-      questions: [
-        { q: "Research method?", opts: [{t:"Reddit deep dive.",p:"Hidden Gem Hunter"}, {t:"Instagram/TikTok.",p:"Insta Explorer"}, {t:"Vogue/Fashion blogs.",p:"Style Seeker"}, {t:"Wellness reviews.",p:"Zen Enthusiast"}] },
-        { q: "Refuse to go if...", opts: [{t:"It's a tourist trap.",p:"Hidden Gem Hunter"}, {t:"Lighting is ugly.",p:"Insta Explorer"}, {t:"People dress bad there.",p:"Style Seeker"}, {t:"It's too loud.",p:"Zen Enthusiast"}] },
-        { q: "Outfit?", opts: [{t:"Thrifted/Practical.",p:"Hidden Gem Hunter"}, {t:"Matches the location.",p:"Insta Explorer"}, {t:"High fashion.",p:"Style Seeker"}, {t:"Athleisure.",p:"Zen Enthusiast"}] },
-        { q: "Activity?", opts: [{t:"Basement art show.",p:"Hidden Gem Hunter"}, {t:"Picnic with props.",p:"Insta Explorer"}, {t:"Boutique hopping.",p:"Style Seeker"}, {t:"Meditation.",p:"Zen Enthusiast"}] },
-        { q: "Snack break?", opts: [{t:"Hole-in-wall place.",p:"Hidden Gem Hunter"}, {t:"Cute bubble tea.",p:"Insta Explorer"}, {t:"Diet coke & salad.",p:"Style Seeker"}, {t:"Green juice.",p:"Zen Enthusiast"}] },
-        { q: "Souvenir?", opts: [{t:"Vinyl record.",p:"Hidden Gem Hunter"}, {t:"Postcards for wall.",p:"Insta Explorer"}, {t:"Jewelry.",p:"Style Seeker"}, {t:"Incense/Oils.",p:"Zen Enthusiast"}] },
-        { q: "Transport?", opts: [{t:"Local bus.",p:"Hidden Gem Hunter"}, {t:"Uber (don't ruin hair).",p:"Insta Explorer"}, {t:"Walk (be seen).",p:"Style Seeker"}, {t:"Bike rental.",p:"Zen Enthusiast"}] },
-        { q: "Hotel need?", opts: [{t:"Cool neighborhood.",p:"Hidden Gem Hunter"}, {t:"Full length mirror.",p:"Insta Explorer"}, {t:"Closet space.",p:"Style Seeker"}, {t:"Bathtub.",p:"Zen Enthusiast"}] }
-      ]
+      "Insta Explorer": { 
+        title: "The Insta Explorer Daughter", 
+        img: "assets/The Insta Explorer Daughter.png", 
+        desc: "Hunts for Instagram-worthy spots and aesthetic cafés.", 
+        tag: "view", 
+        planText: "Viral aesthetic photoshoot at [SPOT]" 
+      },
+      "Style Seeker": { 
+        title: "The Style Seeker Daughter", 
+        img: "assets/The Style Seeker Daughter.png", 
+        desc: "Shops for trendy clothes and accessories.", 
+        tag: "shop", 
+        planText: "Trend-spotting & Shopping at [SPOT]" 
+      },
+      "Zen Enthusiast": { 
+        title: "The Zen Enthusiast Daughter", 
+        img: "assets/The Zen Enthusiast Daughter.png", 
+        desc: "Prefers wellness activities like spas and yoga.", 
+        tag: "wellness", 
+        planText: "Mindfulness & Green Juice at [SPOT]" 
+      }
     },
-    Son: {
-      types: {
-        "Foodie Finder": { 
-            title: "The Foodie Finder Son", 
-            desc: "Plans trips around must-try local dishes and street food.", 
-            planAction: "We are detouring slightly to hit a legendary noodle stall nearby."
-        },
-        "Adventure Ace": { 
-            title: "The Adventure Ace Son", 
-            desc: "Thrives on outdoor activities and adrenaline experiences.", 
-            planAction: "We added a physical activity component here to burn off some energy."
-        },
-        "Tech Tracker": { 
-            title: "The Tech Tracker Son", 
-            desc: "Uses apps to find hidden gems and navigate easily.", 
-            planAction: "Son takes the lead on navigation here using a new AR map app."
-        },
-        "Gamer-on-the-Go": { 
-            title: "The Gamer-on-the-Go Son", 
-            desc: "Finds gaming cafés or portable entertainment during downtime.", 
-            planAction: "A planned downtime block to recharge devices (and play a quick level)."
-        }
+    questions: [
+        { q: "Planning research source?", opts: [{t:"Reddit & local forums.",p:"Hidden Gem Hunter"}, {t:"TikTok & Reels.",p:"Insta Explorer"}, {t:"Vogue & Fashion blogs.",p:"Style Seeker"}, {t:"Wellness retreat reviews.",p:"Zen Enthusiast"}] },
+        { q: "Refuse to go if...", opts: [{t:"It's a tourist trap.",p:"Hidden Gem Hunter"}, {t:"The lighting is ugly.",p:"Insta Explorer"}, {t:"People dress poorly there.",p:"Style Seeker"}, {t:"It's too loud/chaotic.",p:"Zen Enthusiast"}] },
+        { q: "OOTD (Outfit)?", opts: [{t:"Thrifted & Practical.",p:"Hidden Gem Hunter"}, {t:"Matches the background.",p:"Insta Explorer"}, {t:"Runway ready.",p:"Style Seeker"}, {t:"Lululemon/Athleisure.",p:"Zen Enthusiast"}] },
+        { q: "Activity pick?", opts: [{t:"Underground art show.",p:"Hidden Gem Hunter"}, {t:"Picnic with props.",p:"Insta Explorer"}, {t:"Vintage boutique.",p:"Style Seeker"}, {t:"Sunrise yoga.",p:"Zen Enthusiast"}] },
+        { q: "Snack break?", opts: [{t:"Hole-in-wall dumpling.",p:"Hidden Gem Hunter"}, {t:"Aesthetic bubble tea.",p:"Insta Explorer"}, {t:"Iced coffee & salad.",p:"Style Seeker"}, {t:"Acai bowl.",p:"Zen Enthusiast"}] },
+        { q: "Transport choice?", opts: [{t:"Local bus.",p:"Hidden Gem Hunter"}, {t:"Uber (don't ruin hair).",p:"Insta Explorer"}, {t:"Walk (be seen).",p:"Style Seeker"}, {t:"Bike rental.",p:"Zen Enthusiast"}] },
+        { q: "Souvenir?", opts: [{t:"Vinyl record.",p:"Hidden Gem Hunter"}, {t:"Postcards for my wall.",p:"Insta Explorer"}, {t:"Local jewelry.",p:"Style Seeker"}, {t:"Essential oils.",p:"Zen Enthusiast"}] },
+        { q: "Hotel requirement?", opts: [{t:"Cool neighborhood.",p:"Hidden Gem Hunter"}, {t:"Full length mirror.",p:"Insta Explorer"}, {t:"Closet space.",p:"Style Seeker"}, {t:"Deep bathtub.",p:"Zen Enthusiast"}] }
+    ]
+  },
+  Son: {
+    types: {
+      "Foodie Finder": { 
+        title: "The Foodie Finder Son", 
+        img: "assets/The Foodie Finder Son.png", 
+        desc: "Plans trips around must-try local dishes and street food.", 
+        tag: "food", 
+        planText: "Street Food Crawl at [SPOT]" 
       },
-      questions: [
-        { q: "Backpack contents?", opts: [{t:"Snacks.",p:"Foodie Finder"}, {t:"GoPro.",p:"Adventure Ace"}, {t:"Power bank.",p:"Tech Tracker"}, {t:"Switch/Steam Deck.",p:"Gamer-on-the-Go"}] },
-        { q: "Waiting too long...", opts: [{t:"Find vending machine.",p:"Foodie Finder"}, {t:"Climb something.",p:"Adventure Ace"}, {t:"Check transit app.",p:"Tech Tracker"}, {t:"Play mobile game.",p:"Gamer-on-the-Go"}] },
-        { q: "Best city?", opts: [{t:"Great street food.",p:"Foodie Finder"}, {t:"Near mountains.",p:"Adventure Ace"}, {t:"High-tech hub.",p:"Tech Tracker"}, {t:"Fast Wi-Fi.",p:"Gamer-on-the-Go"}] },
-        { q: "Satisfaction is...", opts: [{t:"Full stomach.",p:"Foodie Finder"}, {t:"Adrenaline rush.",p:"Adventure Ace"}, {t:"Efficiency.",p:"Tech Tracker"}, {t:"Leveling up.",p:"Gamer-on-the-Go"}] },
-        { q: "Morning energy?", opts: [{t:"Hungry.",p:"Foodie Finder"}, {t:"Hyper.",p:"Adventure Ace"}, {t:"Checking news/weather.",p:"Tech Tracker"}, {t:"Groggy (up late gaming).",p:"Gamer-on-the-Go"}] },
-        { q: "Museum visit?", opts: [{t:"Is there a cafe?",p:"Foodie Finder"}, {t:"Can I touch things?",p:"Adventure Ace"}, {t:"Audio guide app.",p:"Tech Tracker"}, {t:"Is there a VR exhibit?",p:"Gamer-on-the-Go"}] },
-        { q: "Battery dies?", opts: [{t:"Eat while waiting.",p:"Foodie Finder"}, {t:"Good, explore real world.",p:"Adventure Ace"}, {t:"Panic.",p:"Tech Tracker"}, {t:"Panic.",p:"Gamer-on-the-Go"}] },
-        { q: "Weather check?", opts: [{t:"Picnic weather?",p:"Foodie Finder"}, {t:"Storms? Awesome.",p:"Adventure Ace"}, {t:"Precipitation %.",p:"Tech Tracker"}, {t:"Glare on screen?",p:"Gamer-on-the-Go"}] }
-      ]
-    }
-  };
+      "Adventure Ace": { 
+        title: "The Adventure Ace Son", 
+        img: "assets/The Adventure Ace Son.png", 
+        desc: "Thrives on outdoor activities and adrenaline experiences.", 
+        tag: "thrill", 
+        planText: "Adrenaline Activity at [SPOT]" 
+      },
+      "Tech Tracker": { 
+        title: "The Tech Tracker Son", 
+        img: "assets/The Tech Tracker Son.png", 
+        desc: "Uses apps to find hidden gems and navigate easily.", 
+        tag: "history", 
+        planText: "Augmented Reality / Tech Museum at [SPOT]" 
+      },
+      "Gamer-on-the-Go": { 
+        title: "The Gamer-on-the-Go Son", 
+        img: "assets/The Gamer-on-the-Go Son.png", 
+        desc: "Finds gaming cafés or portable entertainment during downtime.", 
+        tag: "art", 
+        planText: "Interactive/Arcade Experience at [SPOT]" 
+      }
+    },
+    questions: [
+        { q: "Backpack essential?", opts: [{t:"Snacks.",p:"Foodie Finder"}, {t:"GoPro.",p:"Adventure Ace"}, {t:"Power bank.",p:"Tech Tracker"}, {t:"Steam Deck/Switch.",p:"Gamer-on-the-Go"}] },
+        { q: "Bored waiting. You...", opts: [{t:"Find a vending machine.",p:"Foodie Finder"}, {t:"Climb a statue.",p:"Adventure Ace"}, {t:"Optimize our route on maps.",p:"Tech Tracker"}, {t:"Play a quick level.",p:"Gamer-on-the-Go"}] },
+        { q: "Ideal city has...", opts: [{t:"Night markets.",p:"Foodie Finder"}, {t:"Mountains nearby.",p:"Adventure Ace"}, {t:"Super fast 5G.",p:"Tech Tracker"}, {t:"Gaming cafes.",p:"Gamer-on-the-Go"}] },
+        { q: "Morning mood?", opts: [{t:"Starving.",p:"Foodie Finder"}, {t:"Hyperactive.",p:"Adventure Ace"}, {t:"Checking news feeds.",p:"Tech Tracker"}, {t:"Groggy (up late gaming).",p:"Gamer-on-the-Go"}] },
+        { q: "Museum visit. You ask:", opts: [{t:"Is there a cafe?",p:"Foodie Finder"}, {t:"Can I touch things?",p:"Adventure Ace"}, {t:"Is there an audio app?",p:"Tech Tracker"}, {t:"Is there VR?",p:"Gamer-on-the-Go"}] },
+        { q: "Phone battery dies.", opts: [{t:"Eat while waiting.",p:"Foodie Finder"}, {t:"Good. Real world time.",p:"Adventure Ace"}, {t:"Panic.",p:"Tech Tracker"}, {t:"Panic.",p:"Gamer-on-the-Go"}] },
+        { q: "Weather check?", opts: [{t:"Picnic weather?",p:"Foodie Finder"}, {t:"Storms? Awesome.",p:"Adventure Ace"}, {t:"Precipitation %.",p:"Tech Tracker"}, {t:"Glare on screen?",p:"Gamer-on-the-Go"}] },
+        { q: "Satisfaction is...", opts: [{t:"Full stomach.",p:"Foodie Finder"}, {t:"Heart pumping.",p:"Adventure Ace"}, {t:"Maximum efficiency.",p:"Tech Tracker"}, {t:"Beating high score.",p:"Gamer-on-the-Go"}] }
+    ]
+  }
+};
 
-  /* --- STATE MANAGEMENT --- */
-  let state = {
-    destination: null,
-    user1: { role: null, answers: [] },
-    user2: { role: null, answers: [] },
-    currentUser: 1, // 1 or 2
-    currentQ: 0
-  };
-
-  /* --- DOM HELPERS --- */
+  /* STATE */
+  let state = { destination: null, user1: { role: null, answers: [] }, user2: { role: null, answers: [] }, currentUser: 1, currentQ: 0 };
   const el = id => document.getElementById(id);
   const show = id => el(id).classList.remove('hidden');
   const hide = id => el(id).classList.add('hidden');
   const fade = id => el(id).classList.add('fade-in');
 
-  /* --- FLOW LOGIC --- */
-  
   function goToDestinations() {
-    hide('stepIntro');
-    show('stepDest');
-    fade('stepDest');
+    hide('stepIntro'); show('stepDest'); fade('stepDest');
     el('mainTitle').innerHTML = "First, pick<br>your backdrop.";
-    el('mainDesc').innerHTML = "Every city has a different rhythm. Choose where you are headed (or dreaming of) to ground your itinerary.";
+    el('mainDesc').innerHTML = "Every city has a different rhythm. Choose where you are headed.";
   }
 
   function selectDest(cityKey) {
     state.destination = cityKey;
-    // Highlight UI
     document.querySelectorAll('.card-dest').forEach(c => c.classList.remove('selected'));
-    // In a real app we'd highlight clicked, but here we move on
+    // Visual feedback could go here
     setTimeout(() => {
-      hide('stepDest');
-      show('stepRole');
-      fade('stepRole');
+      hide('stepDest'); show('stepRole'); fade('stepRole');
       el('mainTitle').innerHTML = "Traveller 1,<br>Identify yourself.";
-      el('mainDesc').innerHTML = "Are you the parent leading the charge, or the one following along? Let's figure out your style.";
-    }, 400);
+      el('mainDesc').innerHTML = "Are you leading the charge or following along?";
+    }, 300);
   }
 
   function confirmRole(role) {
-    if (state.currentUser === 1) state.user1.role = role;
-    else state.user2.role = role;
-    
+    if (state.currentUser === 1) state.user1.role = role; else state.user2.role = role;
     startQuiz(role);
   }
 
   function startQuiz(role) {
-    hide('stepRole');
-    show('stepQuiz');
+    hide('stepRole'); show('stepQuiz');
     state.currentQ = 0;
     renderQuestion();
-    
     el('mainTitle').innerHTML = "The<br>Discovery.";
-    el('mainDesc').innerHTML = `Digging into the travel psyche of the ${role}. No wrong answers here.`;
+    el('mainDesc').innerHTML = `Digging into the travel psyche of the ${role}.`;
   }
 
   function renderQuestion() {
     const role = state.currentUser === 1 ? state.user1.role : state.user2.role;
     const qData = ROLES[role].questions[state.currentQ];
-    
     el('quizProgress').textContent = `Traveller ${state.currentUser} • Question ${state.currentQ + 1} / 8`;
     el('quizQuestion').textContent = qData.q;
-    
-    const box = el('quizOptions');
-    box.innerHTML = '';
-    
+    const box = el('quizOptions'); box.innerHTML = '';
     qData.opts.forEach((o, i) => {
-      const d = document.createElement('div');
-      d.className = 'quiz-opt fade-in';
-      d.style.animationDelay = (i * 0.05) + 's';
+      const d = document.createElement('div'); d.className = 'quiz-opt fade-in'; d.style.animationDelay = (i * 0.05) + 's';
       d.onclick = () => handleAnswer(o.p);
       d.innerHTML = `<div class="dot"></div><div>${o.t}</div>`;
       box.appendChild(d);
@@ -549,107 +550,66 @@
   }
 
   function handleAnswer(type) {
-    if (state.currentUser === 1) state.user1.answers.push(type);
-    else state.user2.answers.push(type);
-
-    if (state.currentQ < 7) {
-      state.currentQ++;
-      renderQuestion();
-    } else {
-      finishUser();
-    }
+    if (state.currentUser === 1) state.user1.answers.push(type); else state.user2.answers.push(type);
+    if (state.currentQ < 7) { state.currentQ++; renderQuestion(); } else { finishUser(); }
   }
 
   function finishUser() {
     hide('stepQuiz');
     if (state.currentUser === 1) {
-      state.currentUser = 2;
-      show('stepIntermission');
-      fade('stepIntermission');
-      el('mainTitle').innerHTML = "Halfway<br>There.";
-      el('mainDesc').innerHTML = "One down, one to go. Hand the device over to the second traveller.";
+      state.currentUser = 2; show('stepIntermission'); fade('stepIntermission');
+      el('mainTitle').innerHTML = "Halfway<br>There."; el('mainDesc').innerHTML = "Hand the device over to the second traveller.";
     } else {
-      calculateAndShowResult();
+      calculateResult();
     }
   }
 
   function startSecondUser() {
-    hide('stepIntermission');
-    show('stepRole');
-    fade('stepRole');
+    hide('stepIntermission'); show('stepRole'); fade('stepRole');
     el('roleStepLabel').textContent = "Step 3: Traveller 2";
-    el('mainTitle').innerHTML = "Traveller 2,<br>Your turn.";
-    el('mainDesc').innerHTML = "Let's see how your style compares. Opposites attract, or birds of a feather?";
+    el('mainTitle').innerHTML = "Traveller 2,<br>Your turn."; el('mainDesc').innerHTML = "Let's see how your style compares.";
   }
 
-  /* --- RESULT LOGIC --- */
+  function calculateResult() {
+    const getWinner = (arr) => { const t={}; arr.forEach(a=>t[a]=(t[a]||0)+1); return Object.keys(t).reduce((a,b)=>t[a]>t[b]?a:b); };
+    const t1 = getWinner(state.user1.answers);
+    const t2 = getWinner(state.user2.answers);
+    const r1 = state.user1.role;
+    const r2 = state.user2.role;
+    const d1 = ROLES[r1].types[t1];
+    const d2 = ROLES[r2].types[t2];
+    const dest = DESTINATIONS[state.destination];
 
-  function getWinner(answers) {
-    const tally = {};
-    answers.forEach(a => tally[a] = (tally[a] || 0) + 1);
-    return Object.keys(tally).reduce((a, b) => tally[a] > tally[b] ? a : b);
-  }
-
-  function calculateAndShowResult() {
-    const type1 = getWinner(state.user1.answers);
-    const type2 = getWinner(state.user2.answers);
-    const role1 = state.user1.role;
-    const role2 = state.user2.role;
-    const destKey = state.destination;
-
-    const data1 = ROLES[role1].types[type1];
-    const data2 = ROLES[role2].types[type2];
-
-    // Populate Results
-    show('stepResult');
-    fade('stepResult');
-    el('mainTitle').innerHTML = "Your<br>Travel Sync.";
-    el('mainDesc').classList.add('hidden'); // Hide default left pane desc
-
-    el('resMainTitle').textContent = `The ${destKey.charAt(0).toUpperCase() + destKey.slice(1)} Sync`;
-    el('resMainDesc').textContent = `Juxtaposing ${data1.title} with ${data2.title}.`;
-
-    // Cards
-    el('p1Tag').textContent = role1;
-    el('p1Type').textContent = data1.title;
-    el('p1Desc').textContent = data1.desc;
+    show('stepResult'); fade('stepResult');
+    el('mainTitle').innerHTML = "Your<br>Travel Sync."; el('mainDesc').classList.add('hidden');
     
-    el('p2Tag').textContent = role2;
-    el('p2Type').textContent = data2.title;
-    el('p2Desc').textContent = data2.desc;
+    // Fill Personas
+    el('p1Tag').textContent = r1; el('p1Type').textContent = d1.title; el('p1Desc').textContent = d1.desc; el('p1Img').src = d1.img;
+    el('p2Tag').textContent = r2; el('p2Type').textContent = d2.title; el('p2Desc').textContent = d2.desc; el('p2Img').src = d2.img;
 
-    // Timeline Generation
-    generateTimeline(destKey, data1, data2);
-  }
+    // Build Timeline
+    el('planCityName').textContent = dest.name;
+    const tl = el('planTimeline'); tl.innerHTML = '';
 
-  function generateTimeline(cityKey, d1, d2) {
-    const city = DESTINATIONS[cityKey];
-    el('planCityName').textContent = city.name;
-    const tl = el('planTimeline');
-    tl.innerHTML = '';
+    // Logic to pick a spot based on tag preference. If tag not found in city spots, default to 'view'
+    const getSpot = (tag) => dest.spots[tag] || dest.spots.view;
+    const spot1 = getSpot(d1.tag);
+    const spot2 = getSpot(d2.tag);
 
     const events = [
-      { time: "09:00 AM", title: "Morning Start", desc: city.morning[0] + ". " + (d1.desc.includes("Sleep") ? "A slow start." : "Kicking off the day.") },
-      { time: "11:30 AM", title: d1.title + "'s Choice", desc: `<b>Why:</b> ${d1.planAction}` },
-      { time: "01:00 PM", title: "Lunch Break", desc: "Refueling with local flavors at " + city.morning[1] + "." },
-      { time: "03:00 PM", title: d2.title + "'s Choice", desc: `<b>Why:</b> ${d2.planAction}` },
-      { time: "05:00 PM", title: "Shared Afternoon", desc: city.afternoon[0] + ". A balanced spot for both styles." },
-      { time: "07:30 PM", title: "Dinner & Evening", desc: city.evening[0] + ". Winding down the day." }
+      { t: "09:00 AM", title: "Morning Start", badge: "Shared", desc: "Start gently with a local breakfast near " + dest.spots.history + "." },
+      { t: "11:00 AM", title: d1.title + "'s Pick", badge: r1, desc: d1.planText.replace("[SPOT]", `<b>${spot1}</b>`) },
+      { t: "01:00 PM", title: "Lunch Break", badge: "Shared", desc: "Refuel at " + dest.spots.food + " – a spot that offers variety for both." },
+      { t: "03:00 PM", title: d2.title + "'s Pick", badge: r2, desc: d2.planText.replace("[SPOT]", `<b>${spot2}</b>`) },
+      { t: "06:00 PM", title: "Sunset & Dinner", badge: "Shared", desc: "Wind down with views at " + dest.spots.view + " followed by a relaxed dinner." }
     ];
 
     events.forEach(e => {
-      const div = document.createElement('div');
-      div.className = "t-item";
-      div.innerHTML = `
-        <div class="t-dot"></div>
-        <div class="t-time">${e.time}</div>
-        <div class="t-title">${e.title}</div>
-        <div style="font-size:0.95rem; color:#666;">${e.desc}</div>
-      `;
-      tl.appendChild(div);
+      const d = document.createElement('div'); d.className = 't-item';
+      d.innerHTML = `<div class="t-dot"></div><div class="t-time">${e.t}</div><span class="t-badge">${e.badge}</span><div class="t-title">${e.title}</div><div class="t-desc">${e.desc}</div>`;
+      tl.appendChild(d);
     });
   }
-
 </script>
 </body>
 </html>
